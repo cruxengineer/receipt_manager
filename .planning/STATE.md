@@ -1,6 +1,6 @@
 # Project State: ReceiptSplit
 
-**Last Updated:** 2026-03-04 (Plan 01-02 complete)
+**Last Updated:** 2026-03-03 (Plan 01-03 automated tasks complete — awaiting human action for deployment secrets)
 
 ## Project Reference
 
@@ -8,7 +8,7 @@ See: .planning/PROJECT.md (updated 2026-03-03)
 
 **Core value:** Fast, frictionless receipt splitting that feels natural on mobile and produces accurate totals every time.
 
-**Current focus:** Phase 1 in progress — Plans 01-01 and 01-02 complete, moving to Plan 01-03
+**Current focus:** Phase 1 in progress — Plans 01-01, 01-02, and 01-03 (auto tasks) complete — awaiting Vercel secrets configuration for live deployment
 
 ---
 
@@ -18,7 +18,7 @@ See: .planning/PROJECT.md (updated 2026-03-03)
 
 | Phase | Status | Plans | Progress |
 |-------|--------|-------|----------|
-| 1 | ◑ In Progress | 2/3 | 67% |
+| 1 | ◑ In Progress | 3/3 | 100% (deployment pending human action) |
 | 2 | ○ Pending | 0/0 | 0% |
 | 3 | ○ Pending | 0/0 | 0% |
 | 4 | ○ Pending | 0/0 | 0% |
@@ -33,23 +33,25 @@ See: .planning/PROJECT.md (updated 2026-03-03)
 
 ## Current Phase
 
-**Phase 1: Project Foundation** — Plans 01-01 and 01-02 complete
+**Phase 1: Project Foundation** — Plans 01-01, 01-02, and 01-03 automated tasks complete
 
-**Current Plan:** 01-03 (Deployment pipeline and PWA configuration)
+**Current Plan:** 01-03 complete (awaiting Vercel secrets for live deployment)
 
 ---
 
 ## Next Actions
 
-1. Execute Plan 01-03: Deployment pipeline and PWA configuration
+1. Configure Vercel account + add VERCEL_TOKEN, VERCEL_ORG_ID, VERCEL_PROJECT_ID secrets to GitHub repo (Task 3 of Plan 01-03)
+2. Push to main/master to trigger first deployment
+3. Verify PWA installation on iPhone Safari (Add to Home Screen)
 
 ---
 
 ## Requirements Status
 
 **v1 Requirements:** 32 total
-- ✓ Validated: 1 (DEPL-01 — confirmed by Plan 01-02)
-- ○ Pending: 31
+- ✓ Validated: 4 (DEPL-01 confirmed by 01-02; DEPL-01, DEPL-02, DEPL-03 addressed by 01-03 — live deployment pending)
+- ○ Pending: 28
 - ✗ Blocked: 0
 
 ---
@@ -62,11 +64,15 @@ See: .planning/PROJECT.md (updated 2026-03-03)
 - **2026-03-04 (01-02):** Tailwind v4 @theme block used for color tokens instead of tailwind.config.js (project uses @tailwindcss/vite, CSS-first config)
 - **2026-03-04 (01-02):** Person A blue HSL 217 91% 60%, Person B green HSL 142 71% 45% — high contrast, colorblind-friendly
 - **2026-03-04 (01-02):** Button h-11 (44px) default satisfies 44x44pt mobile touch target requirement
+- **2026-03-03 (01-03):** Chose Vercel as deployment target (simplest Vite integration, free tier, automatic HTTPS)
+- **2026-03-03 (01-03):** vite-plugin-pwa generates manifest.webmanifest and service worker from vite.config.ts — no separate public/manifest.json needed
+- **2026-03-03 (01-03):** Placeholder icons are solid blue PNG files generated via Node.js zlib — sufficient for PWA installation testing
 
 ---
 
 ## Recent Activity
 
+- 2026-03-03: Plan 01-03 automated tasks complete — vite-plugin-pwa manifest, 192/512px icons, GitHub Actions Vercel deploy (commits: 89ee9c7, dfe8eb9) — awaiting human action for deployment secrets
 - 2026-03-04: Plan 01-02 complete — shadcn/ui Button, Person A/B color tokens via Tailwind v4 @theme, cn() utility, app shell (commits: 88b79f5, f3ba920, 6abd38b)
 - 2026-03-04: Plan 01-01 complete — Vite 7 + React 19 + TypeScript 5.9 + Tailwind v4 scaffold (commits: 0c7eea3, 9fdb652, 5099710)
 - 2026-03-03: Phase 1 context gathered (AI provider: Claude 3.5 Sonnet, Styling: Tailwind + shadcn/ui)
@@ -82,8 +88,9 @@ See: .planning/PROJECT.md (updated 2026-03-03)
 |-------|------|----------|-------|-------|
 | 01-project-foundation | 01 | 5min | 3 | 14 |
 | 01-project-foundation | 02 | 2min | 3 | 7 |
+| 01-project-foundation | 03 | 8min | 2 | 6 |
 
 ---
 
 *State tracking initialized 2026-03-03*
-*Last session: 2026-03-04 — Stopped at: Completed 01-project-foundation/01-02-PLAN.md*
+*Last session: 2026-03-03 — Stopped at: Checkpoint human-action in 01-project-foundation/01-03-PLAN.md (Task 3: deployment secrets)*

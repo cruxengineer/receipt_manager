@@ -13,6 +13,13 @@
 **Requirements:**
 - DEPL-01, DEPL-02, DEPL-03
 
+**Plans:** 3 plans
+
+Plans:
+- [ ] 01-01-PLAN.md — Project scaffold with Vite + React + TypeScript and Tailwind CSS
+- [ ] 01-02-PLAN.md — UI foundation with shadcn/ui and Person A/B color tokens
+- [ ] 01-03-PLAN.md — Deployment pipeline and PWA configuration
+
 **Success Criteria:**
 1. Tech stack selected and documented (framework, build tool, AI vision provider)
 2. Project scaffolded with working dev server
@@ -31,6 +38,8 @@
 **Requirements:**
 - CAPT-01, CAPT-02, CAPT-03, CAPT-04, CAPT-05
 
+**Plans:** [To be planned]
+
 **Success Criteria:**
 1. User can trigger camera on mobile devices
 2. User can select image file(s) from device
@@ -48,6 +57,8 @@
 
 **Requirements:**
 - AI-01, AI-02, AI-03, AI-04, AI-05
+
+**Plans:** [To be planned]
 
 **Success Criteria:**
 1. App sends receipt image to AI vision API with structured prompt
@@ -68,6 +79,8 @@
 **Requirements:**
 - PERS-01, PERS-02, PERS-03
 
+**Plans:** [To be planned]
+
 **Success Criteria:**
 1. User can set custom names for Person A and Person B before or during assignment
 2. Default names shown if user doesn't customize ("You" / "Partner" or similar)
@@ -84,6 +97,8 @@
 
 **Requirements:**
 - SWIP-01, SWIP-02, SWIP-03, SWIP-04, SWIP-05, SWIP-06, SWIP-07, SWIP-08, SWIP-09
+
+**Plans:** [To be planned]
 
 **Success Criteria:**
 1. One item card displayed at a time, centered on screen
@@ -107,6 +122,8 @@
 **Requirements:**
 - SUMM-01, SUMM-02, SUMM-03, SUMM-04, SUMM-05, SUMM-06, SUMM-07
 
+**Plans:** [To be planned]
+
 **Success Criteria:**
 1. Person A's items listed with individual prices
 2. Person B's items listed with individual prices
@@ -127,6 +144,8 @@
 **Requirements:**
 - UX-01, UX-02, UX-03, UX-04
 
+**Plans:** [To be planned]
+
 **Success Criteria:**
 1. App tested and working smoothly on iPhone Safari (primary target)
 2. All touch targets minimum 44x44pt (thumb-friendly)
@@ -144,6 +163,8 @@
 
 **Requirements:**
 - (Cross-cutting validation of all requirements)
+
+**Plans:** [To be planned]
 
 **Success Criteria:**
 1. Test with real receipts from various restaurants (printed, handwritten, different formats)
@@ -179,4 +200,4 @@
 ---
 
 *Roadmap created: 2026-03-03*
-*Last updated: 2026-03-03 after initial creation*
+*Last updated: 2026-03-03 after Phase 1 planning*

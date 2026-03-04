@@ -1,1 +1,25 @@
 @import "tailwindcss";
+
+@layer base {
+  :root {
+    /* Person A - Blue (primary) */
+    --person-a: 217 91% 60%; /* HSL for blue-500 */
+    --person-a-light: 217 91% 95%; /* Light blue background */
+    --person-a-dark: 217 91% 40%; /* Darker blue for contrast */
+
+    /* Person B - Green (secondary) */
+    --person-b: 142 71% 45%; /* HSL for green-600 */
+    --person-b-light: 142 71% 95%; /* Light green background */
+    --person-b-dark: 142 71% 35%; /* Darker green for contrast */
+  }
+}
+
+@theme {
+  --color-person-a: hsl(217 91% 60%);
+  --color-person-a-light: hsl(217 91% 95%);
+  --color-person-a-dark: hsl(217 91% 40%);
+
+  --color-person-b: hsl(142 71% 45%);
+  --color-person-b-light: hsl(142 71% 95%);
+  --color-person-b-dark: hsl(142 71% 35%);
+}

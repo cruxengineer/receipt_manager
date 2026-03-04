@@ -40,7 +40,7 @@ Fast, frictionless receipt splitting that feels natural on mobile and produces a
 
 **Motivation:** Personal need (split bills with friends frequently), learning opportunity (explore AI vision APIs and mobile-first web patterns), and portfolio piece.
 
-**Target users:** Anyone splitting restaurant bills with one other person. Should be shareable via URL and immediately usable without explanation.
+**Target users:** Anyone splitting restaurant bills or store expenses with one other person. Should be shareable via URL and immediately usable without explanation.
 
 **Key interaction:** The swipe gesture is central to the UX. It should feel responsive and natural, though doesn't need to be Tinder-level polish—focus on reliability over fancy animations.
 

@@ -1,0 +1,115 @@
+# Requirements: ReceiptSplit
+
+**Defined:** 2026-03-03
+**Core Value:** Fast, frictionless receipt splitting that feels natural on mobile and produces accurate totals every time.
+
+## v1 Requirements
+
+Requirements for initial release. Each maps to roadmap phases.
+
+### Receipt Capture
+
+- [ ] **CAPT-01**: User can upload receipt photo from device
+- [ ] **CAPT-02**: User can capture receipt photo using device camera
+- [ ] **CAPT-03**: User can upload multiple receipt images from same meal
+- [ ] **CAPT-04**: User sees loading state while AI processes image
+- [ ] **CAPT-05**: User sees clear error with retry option if receipt is unreadable
+
+### AI Processing
+
+- [ ] **AI-01**: App extracts items (name + price) from receipt image via AI vision API
+- [ ] **AI-02**: App returns structured item list within 5 seconds
+- [ ] **AI-03**: App extracts subtotal, tax, tip, and total if present on receipt
+- [ ] **AI-04**: App handles ambiguous items with best-guess extraction
+- [ ] **AI-05**: Mock mode available for testing without API calls
+
+### Item Assignment (Swipe UI)
+
+- [ ] **SWIP-01**: User sees one item card at a time, centered on screen
+- [ ] **SWIP-02**: User can swipe left to assign item to Person A
+- [ ] **SWIP-03**: User can swipe right to assign item to Person B
+- [ ] **SWIP-04**: User can tap center button to split item equally
+- [ ] **SWIP-05**: Card follows finger/mouse with natural drag feel
+- [ ] **SWIP-06**: Card animates off screen when swiped past threshold
+- [ ] **SWIP-07**: User can undo/go back to previous card
+- [ ] **SWIP-08**: Progress indicator shows items remaining
+- [ ] **SWIP-09**: Running totals for both people visible at bottom throughout
+
+### Person Management
+
+- [ ] **PERS-01**: User can set names for Person A and Person B
+- [ ] **PERS-02**: Color coding consistently differentiates Person A vs Person B
+- [ ] **PERS-03**: Default names provided if user doesn't customize
+
+### Summary
+
+- [ ] **SUMM-01**: Summary screen shows Person A's itemized list with prices
+- [ ] **SUMM-02**: Summary screen shows Person B's itemized list with prices
+- [ ] **SUMM-03**: Summary screen shows split items clearly
+- [ ] **SUMM-04**: Summary screen shows each person's total amount owed
+- [ ] **SUMM-05**: Summary math is always correct (assigned + split = receipt total)
+- [ ] **SUMM-06**: User can go back and adjust assignments from summary
+- [ ] **SUMM-07**: User can start over with new receipt from summary
+
+### UX & Platform
+
+- [ ] **UX-01**: App is mobile-first and works smoothly on iPhone Safari
+- [ ] **UX-02**: All touch targets are thumb-friendly (large enough)
+- [ ] **UX-03**: Full receipt split completable in under 2 minutes
+- [ ] **UX-04**: No login required (stateless, session-based)
+
+### Deployment
+
+- [ ] **DEPL-01**: App hosted as static web app (no server required)
+- [ ] **DEPL-02**: App accessible via URL on any device
+- [ ] **DEPL-03**: App is PWA-friendly (can be saved to iPhone home screen)
+
+## v2 Requirements
+
+Deferred to future release. Tracked but not in current roadmap.
+
+### Multi-receipt & Advanced
+
+- **MULT-01**: Support for 3+ people splitting
+- **MULT-02**: Custom split percentages (not just equal split)
+- **MULT-03**: Persistent session history/saved receipts
+
+### Payments
+
+- **PAY-01**: Venmo/payment app integration
+- **PAY-02**: Send payment request directly from summary
+
+### International
+
+- **INTL-01**: Currency conversion support
+- **INTL-02**: Multi-language support
+
+## Out of Scope
+
+Explicitly excluded. Documented to prevent scope creep.
+
+| Feature | Reason |
+|---------|--------|
+| User accounts or saved history | Stateless for v1 simplicity, no backend needed |
+| More than two people splitting | Keeps UX and data model simple for initial release |
+| Currency conversion | Single currency sufficient for v1 |
+| Payment app integration | Just show amounts owed, manual payment for v1 |
+| Itemized tax per item | Tax as separate line item if present |
+| Native mobile app | PWA-friendly web app meets the need |
+
+## Traceability
+
+Which phases cover which requirements. Updated during roadmap creation.
+
+| Requirement | Phase | Status |
+|-------------|-------|--------|
+| (To be filled during roadmap creation) | | |
+
+**Coverage:**
+- v1 requirements: 32 total
+- Mapped to phases: 0 (pending roadmap)
+- Unmapped: 32 ⚠️
+
+---
+*Requirements defined: 2026-03-03*
+*Last updated: 2026-03-03 after initial definition*

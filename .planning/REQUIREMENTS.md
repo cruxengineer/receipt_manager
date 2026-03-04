@@ -60,7 +60,7 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Deployment
 
-- [ ] **DEPL-01**: App hosted as static web app (no server required)
+- [x] **DEPL-01**: App hosted as static web app (no server required)
 - [ ] **DEPL-02**: App accessible via URL on any device
 - [ ] **DEPL-03**: App is PWA-friendly (can be saved to iPhone home screen)
 
@@ -136,7 +136,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | UX-02 | Phase 7 | Pending |
 | UX-03 | Phase 7 | Pending |
 | UX-04 | Phase 7 | Pending |
-| DEPL-01 | Phase 1 | Pending |
+| DEPL-01 | Phase 1 | Complete |
 | DEPL-02 | Phase 1 | Pending |
 | DEPL-03 | Phase 1 | Pending |
 

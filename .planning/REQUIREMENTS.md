@@ -103,12 +103,47 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| (To be filled during roadmap creation) | | |
+| CAPT-01 | Phase 2 | Pending |
+| CAPT-02 | Phase 2 | Pending |
+| CAPT-03 | Phase 2 | Pending |
+| CAPT-04 | Phase 2 | Pending |
+| CAPT-05 | Phase 2 | Pending |
+| AI-01 | Phase 3 | Pending |
+| AI-02 | Phase 3 | Pending |
+| AI-03 | Phase 3 | Pending |
+| AI-04 | Phase 3 | Pending |
+| AI-05 | Phase 3 | Pending |
+| SWIP-01 | Phase 5 | Pending |
+| SWIP-02 | Phase 5 | Pending |
+| SWIP-03 | Phase 5 | Pending |
+| SWIP-04 | Phase 5 | Pending |
+| SWIP-05 | Phase 5 | Pending |
+| SWIP-06 | Phase 5 | Pending |
+| SWIP-07 | Phase 5 | Pending |
+| SWIP-08 | Phase 5 | Pending |
+| SWIP-09 | Phase 5 | Pending |
+| PERS-01 | Phase 4 | Pending |
+| PERS-02 | Phase 4 | Pending |
+| PERS-03 | Phase 4 | Pending |
+| SUMM-01 | Phase 6 | Pending |
+| SUMM-02 | Phase 6 | Pending |
+| SUMM-03 | Phase 6 | Pending |
+| SUMM-04 | Phase 6 | Pending |
+| SUMM-05 | Phase 6 | Pending |
+| SUMM-06 | Phase 6 | Pending |
+| SUMM-07 | Phase 6 | Pending |
+| UX-01 | Phase 7 | Pending |
+| UX-02 | Phase 7 | Pending |
+| UX-03 | Phase 7 | Pending |
+| UX-04 | Phase 7 | Pending |
+| DEPL-01 | Phase 1 | Pending |
+| DEPL-02 | Phase 1 | Pending |
+| DEPL-03 | Phase 1 | Pending |
 
 **Coverage:**
 - v1 requirements: 32 total
-- Mapped to phases: 0 (pending roadmap)
-- Unmapped: 32 ⚠️
+- Mapped to phases: 32 ✓
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-03-03*

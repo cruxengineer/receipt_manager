@@ -9,11 +9,11 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Receipt Capture
 
-- [ ] **CAPT-01**: User can upload receipt photo from device
-- [ ] **CAPT-02**: User can capture receipt photo using device camera
-- [ ] **CAPT-03**: User can upload multiple receipt images from same meal
-- [ ] **CAPT-04**: User sees loading state while AI processes image
-- [ ] **CAPT-05**: User sees clear error with retry option if receipt is unreadable
+- [x] **CAPT-01**: User can upload receipt photo from device
+- [x] **CAPT-02**: User can capture receipt photo using device camera
+- [x] **CAPT-03**: User can upload multiple receipt images from same meal
+- [x] **CAPT-04**: User sees loading state while AI processes image
+- [x] **CAPT-05**: User sees clear error with retry option if receipt is unreadable
 
 ### AI Processing
 
@@ -103,11 +103,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| CAPT-01 | Phase 2 | Pending |
-| CAPT-02 | Phase 2 | Pending |
-| CAPT-03 | Phase 2 | Pending |
-| CAPT-04 | Phase 2 | Pending |
-| CAPT-05 | Phase 2 | Pending |
+| CAPT-01 | Phase 2 | Complete |
+| CAPT-02 | Phase 2 | Complete |
+| CAPT-03 | Phase 2 | Complete |
+| CAPT-04 | Phase 2 | Complete |
+| CAPT-05 | Phase 2 | Complete |
 | AI-01 | Phase 3 | Pending |
 | AI-02 | Phase 3 | Pending |
 | AI-03 | Phase 3 | Pending |

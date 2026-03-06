@@ -1,6 +1,20 @@
+---
+gsd_state_version: 1.0
+milestone: v1.0
+milestone_name: milestone
+current_plan: 01-03 complete (awaiting Vercel secrets for live deployment)
+status: unknown
+last_updated: "2026-03-06T06:27:18.676Z"
+progress:
+  total_phases: 8
+  completed_phases: 1
+  total_plans: 7
+  completed_plans: 4
+---
+
 # Project State: ReceiptSplit
 
-**Last Updated:** 2026-03-03 (Plan 01-03 automated tasks complete — awaiting human action for deployment secrets)
+**Last Updated:** 2026-03-06 (Plan 02-01 complete — test harness installed, 12 RED stubs created)
 
 ## Project Reference
 
@@ -8,7 +22,7 @@ See: .planning/PROJECT.md (updated 2026-03-03)
 
 **Core value:** Fast, frictionless receipt splitting that feels natural on mobile and produces accurate totals every time.
 
-**Current focus:** Phase 1 in progress — Plans 01-01, 01-02, and 01-03 (auto tasks) complete — awaiting Vercel secrets configuration for live deployment
+**Current focus:** Phase 2 in progress — Plan 02-01 complete (test harness), ready for 02-02 (useReceiptFiles hook)
 
 ---
 
@@ -19,7 +33,7 @@ See: .planning/PROJECT.md (updated 2026-03-03)
 | Phase | Status | Plans | Progress |
 |-------|--------|-------|----------|
 | 1 | ◑ In Progress | 3/3 | 100% (deployment pending human action) |
-| 2 | ○ Pending | 0/0 | 0% |
+| 2 | ◑ In Progress | 1/4 | 25% |
 | 3 | ○ Pending | 0/0 | 0% |
 | 4 | ○ Pending | 0/0 | 0% |
 | 5 | ○ Pending | 0/0 | 0% |
@@ -33,17 +47,17 @@ See: .planning/PROJECT.md (updated 2026-03-03)
 
 ## Current Phase
 
-**Phase 1: Project Foundation** — Plans 01-01, 01-02, and 01-03 automated tasks complete
+**Phase 2: Receipt Capture Interface** — Plan 02-01 (test harness) complete
 
-**Current Plan:** 01-03 complete (awaiting Vercel secrets for live deployment)
+**Current Plan:** 02-01 complete — next: 02-02 (useReceiptFiles hook implementation)
 
 ---
 
 ## Next Actions
 
-1. Configure Vercel account + add VERCEL_TOKEN, VERCEL_ORG_ID, VERCEL_PROJECT_ID secrets to GitHub repo (Task 3 of Plan 01-03)
-2. Push to main/master to trigger first deployment
-3. Verify PWA installation on iPhone Safari (Add to Home Screen)
+1. Execute Plan 02-02: Implement useReceiptFiles hook (drives 6 RED stubs to GREEN)
+2. Execute Plan 02-03: Implement CaptureScreen component (drives 6 RED stubs to GREEN)
+3. (Deferred from Phase 1) Configure Vercel account + add VERCEL_TOKEN, VERCEL_ORG_ID, VERCEL_PROJECT_ID secrets to GitHub repo
 
 ---
 
@@ -67,11 +81,12 @@ See: .planning/PROJECT.md (updated 2026-03-03)
 - **2026-03-03 (01-03):** Chose Vercel as deployment target (simplest Vite integration, free tier, automatic HTTPS)
 - **2026-03-03 (01-03):** vite-plugin-pwa generates manifest.webmanifest and service worker from vite.config.ts — no separate public/manifest.json needed
 - **2026-03-03 (01-03):** Placeholder icons are solid blue PNG files generated via Node.js zlib — sufficient for PWA installation testing
-
----
+- **2026-03-06 (02-01):** vitest.config.ts separate from vite.config.ts — uses @vitejs/plugin-react only, no Tailwind or PWA plugins in test environment
+- **2026-03-06 (02-01):** globals: true in vitest config so describe/it/expect available without explicit imports in test files
 
 ## Recent Activity
 
+- 2026-03-06: Plan 02-01 complete — Vitest 4 + RTL test harness installed; 12 RED stubs for CAPT-01..05 (commits: 947aa90, 1dfb1bc)
 - 2026-03-03: Plan 01-03 automated tasks complete — vite-plugin-pwa manifest, 192/512px icons, GitHub Actions Vercel deploy (commits: 89ee9c7, dfe8eb9) — awaiting human action for deployment secrets
 - 2026-03-04: Plan 01-02 complete — shadcn/ui Button, Person A/B color tokens via Tailwind v4 @theme, cn() utility, app shell (commits: 88b79f5, f3ba920, 6abd38b)
 - 2026-03-04: Plan 01-01 complete — Vite 7 + React 19 + TypeScript 5.9 + Tailwind v4 scaffold (commits: 0c7eea3, 9fdb652, 5099710)
@@ -89,8 +104,10 @@ See: .planning/PROJECT.md (updated 2026-03-03)
 | 01-project-foundation | 01 | 5min | 3 | 14 |
 | 01-project-foundation | 02 | 2min | 3 | 7 |
 | 01-project-foundation | 03 | 8min | 2 | 6 |
+| 02-receipt-capture-interface | 01 | 5min | 2 | 6 |
 
 ---
 
 *State tracking initialized 2026-03-03*
-*Last session: 2026-03-03 — Stopped at: Checkpoint human-action in 01-project-foundation/01-03-PLAN.md (Task 3: deployment secrets)*
+*Last session: 2026-03-06 — Stopped at: Completed 02-receipt-capture-interface/02-01-PLAN.md*
+

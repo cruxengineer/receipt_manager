@@ -2,19 +2,19 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-current_plan: 01-03 complete (awaiting Vercel secrets for live deployment)
+current_plan: "02-02 complete — next: 02-03 (CaptureScreen component implementation)"
 status: unknown
-last_updated: "2026-03-06T06:27:18.676Z"
+last_updated: "2026-03-06T06:29:38.613Z"
 progress:
   total_phases: 8
   completed_phases: 1
   total_plans: 7
-  completed_plans: 4
+  completed_plans: 5
 ---
 
 # Project State: ReceiptSplit
 
-**Last Updated:** 2026-03-06 (Plan 02-01 complete — test harness installed, 12 RED stubs created)
+**Last Updated:** 2026-03-06 (Plan 02-02 complete — useReceiptFiles hook implemented, all 6 tests GREEN)
 
 ## Project Reference
 
@@ -22,7 +22,7 @@ See: .planning/PROJECT.md (updated 2026-03-03)
 
 **Core value:** Fast, frictionless receipt splitting that feels natural on mobile and produces accurate totals every time.
 
-**Current focus:** Phase 2 in progress — Plan 02-01 complete (test harness), ready for 02-02 (useReceiptFiles hook)
+**Current focus:** Phase 2 in progress — Plans 02-01 and 02-02 complete, ready for 02-03 (CaptureScreen component)
 
 ---
 
@@ -33,7 +33,7 @@ See: .planning/PROJECT.md (updated 2026-03-03)
 | Phase | Status | Plans | Progress |
 |-------|--------|-------|----------|
 | 1 | ◑ In Progress | 3/3 | 100% (deployment pending human action) |
-| 2 | ◑ In Progress | 1/4 | 25% |
+| 2 | ◑ In Progress | 2/4 | 50% |
 | 3 | ○ Pending | 0/0 | 0% |
 | 4 | ○ Pending | 0/0 | 0% |
 | 5 | ○ Pending | 0/0 | 0% |
@@ -47,16 +47,16 @@ See: .planning/PROJECT.md (updated 2026-03-03)
 
 ## Current Phase
 
-**Phase 2: Receipt Capture Interface** — Plan 02-01 (test harness) complete
+**Phase 2: Receipt Capture Interface** — Plans 02-01 (test harness) and 02-02 (useReceiptFiles hook) complete
 
-**Current Plan:** 02-01 complete — next: 02-02 (useReceiptFiles hook implementation)
+**Current Plan:** 02-02 complete — next: 02-03 (CaptureScreen component implementation)
 
 ---
 
 ## Next Actions
 
-1. Execute Plan 02-02: Implement useReceiptFiles hook (drives 6 RED stubs to GREEN)
-2. Execute Plan 02-03: Implement CaptureScreen component (drives 6 RED stubs to GREEN)
+1. Execute Plan 02-03: Implement CaptureScreen component (drives 6 RED stubs to GREEN)
+2. Execute Plan 02-04: Remaining Phase 2 tasks
 3. (Deferred from Phase 1) Configure Vercel account + add VERCEL_TOKEN, VERCEL_ORG_ID, VERCEL_PROJECT_ID secrets to GitHub repo
 
 ---
@@ -83,9 +83,13 @@ See: .planning/PROJECT.md (updated 2026-03-03)
 - **2026-03-03 (01-03):** Placeholder icons are solid blue PNG files generated via Node.js zlib — sufficient for PWA installation testing
 - **2026-03-06 (02-01):** vitest.config.ts separate from vite.config.ts — uses @vitejs/plugin-react only, no Tailwind or PWA plugins in test environment
 - **2026-03-06 (02-01):** globals: true in vitest config so describe/it/expect available without explicit imports in test files
+- [Phase 02-02]: id generation uses name+size+timestamp+random suffix to make same-file re-selection produce a distinct ID
+- [Phase 02-02]: DataTransfer polyfill added to test setup (jsdom 28 does not implement DataTransfer)
+- [Phase 02-02]: Non-image files silently filtered in useReceiptFiles — no error UI — OS picker already handles type restriction
 
 ## Recent Activity
 
+- 2026-03-06: Plan 02-02 complete — useReceiptFiles hook + FileWithPreview types; all 6 tests GREEN; DataTransfer polyfill for jsdom (commits: f722b92, 05ef02b)
 - 2026-03-06: Plan 02-01 complete — Vitest 4 + RTL test harness installed; 12 RED stubs for CAPT-01..05 (commits: 947aa90, 1dfb1bc)
 - 2026-03-03: Plan 01-03 automated tasks complete — vite-plugin-pwa manifest, 192/512px icons, GitHub Actions Vercel deploy (commits: 89ee9c7, dfe8eb9) — awaiting human action for deployment secrets
 - 2026-03-04: Plan 01-02 complete — shadcn/ui Button, Person A/B color tokens via Tailwind v4 @theme, cn() utility, app shell (commits: 88b79f5, f3ba920, 6abd38b)
@@ -105,9 +109,10 @@ See: .planning/PROJECT.md (updated 2026-03-03)
 | 01-project-foundation | 02 | 2min | 3 | 7 |
 | 01-project-foundation | 03 | 8min | 2 | 6 |
 | 02-receipt-capture-interface | 01 | 5min | 2 | 6 |
+| 02-receipt-capture-interface | 02 | 4min | 2 | 3 |
 
 ---
 
 *State tracking initialized 2026-03-03*
-*Last session: 2026-03-06 — Stopped at: Completed 02-receipt-capture-interface/02-01-PLAN.md*
+*Last session: 2026-03-06 — Stopped at: Completed 02-receipt-capture-interface/02-02-PLAN.md*
 

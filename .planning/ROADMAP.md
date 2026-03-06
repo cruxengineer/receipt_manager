@@ -38,7 +38,7 @@ Plans:
 **Requirements:**
 - CAPT-01, CAPT-02, CAPT-03, CAPT-04, CAPT-05
 
-**Plans:** 1/4 plans executed
+**Plans:** 2/4 plans executed
 
 Plans:
 - [ ] 02-01-PLAN.md — Wave 0: Vitest + React Testing Library setup and failing test stubs
@@ -189,7 +189,7 @@ Plans:
 | Phase | Requirements | Complexity | Dependencies |
 |-------|--------------|------------|--------------|
 | 1 | 3/3 | Complete   | 2026-03-04 |
-| 2 | 1/4 | In Progress|  |
+| 2 | 2/4 | In Progress|  |
 | 3 | 5 | High | Phase 1 |
 | 4 | 3 | Low | Phase 1 |
 | 5 | 9 | High | Phase 2, 3, 4 |

@@ -1,43 +1,44 @@
-import { Button } from "@/components/ui/button"
+import { useState } from 'react'
+import CaptureScreen from '@/components/capture/CaptureScreen'
 
+/**
+ * App root — Phase 2.
+ *
+ * State lifted here so Phase 3 (AI integration) can replace the stub handlers
+ * with real API calls without touching CaptureScreen.
+ *
+ * Phase 3 will replace handleSubmit with the actual AI vision call.
+ * For now it simulates a brief processing state and then clears it.
+ */
 function App() {
+  const [isProcessing, setIsProcessing] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+
+  const handleSubmit = async (files: File[]) => {
+    setError(null)
+    setIsProcessing(true)
+
+    // Phase 3 stub: simulate processing delay, then clear
+    // Replace this block with AI vision call in Phase 3
+    await new Promise((resolve) => setTimeout(resolve, 1500))
+    setIsProcessing(false)
+
+    // Uncomment to test error state during development:
+    // setError('Could not read receipt. Please try a clearer photo.')
+    console.log('Receipt files ready for Phase 3 AI processing:', files)
+  }
+
+  const handleRetry = () => {
+    setError(null)
+  }
+
   return (
-    <div className="min-h-screen bg-gray-50 p-4">
-      <div className="max-w-md mx-auto space-y-6">
-        <header className="text-center py-8">
-          <h1 className="text-3xl font-bold text-gray-900">
-            ReceiptSplit
-          </h1>
-          <p className="text-gray-600 mt-2">
-            Fast, frictionless receipt splitting
-          </p>
-        </header>
-
-        <div className="bg-white rounded-lg shadow p-6 space-y-4">
-          <h2 className="text-xl font-semibold mb-4">Component Test</h2>
-
-          {/* Test shadcn/ui Button */}
-          <div className="space-y-2">
-            <Button className="w-full">Default Button</Button>
-            <Button variant="outline" className="w-full">Outline Button</Button>
-          </div>
-
-          {/* Test Person A/B colors */}
-          <div className="space-y-2 pt-4 border-t">
-            <div className="p-4 bg-person-a-light border-2 border-person-a rounded">
-              <span className="text-person-a-dark font-semibold">Person A (Blue)</span>
-            </div>
-            <div className="p-4 bg-person-b-light border-2 border-person-b rounded">
-              <span className="text-person-b-dark font-semibold">Person B (Green)</span>
-            </div>
-          </div>
-        </div>
-
-        <footer className="text-center text-sm text-gray-500 pt-4">
-          Foundation setup complete
-        </footer>
-      </div>
-    </div>
+    <CaptureScreen
+      isProcessing={isProcessing}
+      error={error}
+      onRetry={handleRetry}
+      onSubmit={handleSubmit}
+    />
   )
 }
 

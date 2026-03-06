@@ -38,7 +38,13 @@ Plans:
 **Requirements:**
 - CAPT-01, CAPT-02, CAPT-03, CAPT-04, CAPT-05
 
-**Plans:** [To be planned]
+**Plans:** 4 plans
+
+Plans:
+- [ ] 02-01-PLAN.md — Wave 0: Vitest + React Testing Library setup and failing test stubs
+- [ ] 02-02-PLAN.md — Wave 1: FileWithPreview types and useReceiptFiles hook
+- [ ] 02-03-PLAN.md — Wave 2: Capture UI components (CaptureScreen, FileInputTrigger, ImagePreviewList, UploadStatus)
+- [ ] 02-04-PLAN.md — Wave 3: Wire CaptureScreen into App.tsx + iPhone Safari human verify
 
 **Success Criteria:**
 1. User can trigger camera on mobile devices
@@ -200,4 +206,4 @@ Plans:
 ---
 
 *Roadmap created: 2026-03-03*
-*Last updated: 2026-03-03 after Plan 01-03 execution (automated tasks complete)*
+*Last updated: 2026-03-05 after Phase 2 planning (4 plans created)*

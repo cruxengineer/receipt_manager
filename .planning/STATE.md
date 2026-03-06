@@ -2,19 +2,19 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-current_plan: "02-02 complete — next: 02-03 (CaptureScreen component implementation)"
-status: unknown
-last_updated: "2026-03-06T06:29:38.613Z"
+current_plan: "02-03 complete — next: 02-04 (App.tsx integration)"
+status: in-progress
+last_updated: "2026-03-06T06:37:00.000Z"
 progress:
   total_phases: 8
   completed_phases: 1
   total_plans: 7
-  completed_plans: 5
+  completed_plans: 6
 ---
 
 # Project State: ReceiptSplit
 
-**Last Updated:** 2026-03-06 (Plan 02-02 complete — useReceiptFiles hook implemented, all 6 tests GREEN)
+**Last Updated:** 2026-03-06 (Plan 02-03 complete — CaptureScreen components built, all 12 tests GREEN)
 
 ## Project Reference
 
@@ -22,7 +22,7 @@ See: .planning/PROJECT.md (updated 2026-03-03)
 
 **Core value:** Fast, frictionless receipt splitting that feels natural on mobile and produces accurate totals every time.
 
-**Current focus:** Phase 2 in progress — Plans 02-01 and 02-02 complete, ready for 02-03 (CaptureScreen component)
+**Current focus:** Phase 2 in progress — Plans 02-01, 02-02, and 02-03 complete, ready for 02-04 (App.tsx integration)
 
 ---
 
@@ -33,7 +33,7 @@ See: .planning/PROJECT.md (updated 2026-03-03)
 | Phase | Status | Plans | Progress |
 |-------|--------|-------|----------|
 | 1 | ◑ In Progress | 3/3 | 100% (deployment pending human action) |
-| 2 | ◑ In Progress | 2/4 | 50% |
+| 2 | ◑ In Progress | 3/4 | 75% |
 | 3 | ○ Pending | 0/0 | 0% |
 | 4 | ○ Pending | 0/0 | 0% |
 | 5 | ○ Pending | 0/0 | 0% |
@@ -47,17 +47,16 @@ See: .planning/PROJECT.md (updated 2026-03-03)
 
 ## Current Phase
 
-**Phase 2: Receipt Capture Interface** — Plans 02-01 (test harness) and 02-02 (useReceiptFiles hook) complete
+**Phase 2: Receipt Capture Interface** — Plans 02-01 (test harness), 02-02 (useReceiptFiles hook), and 02-03 (CaptureScreen components) complete
 
-**Current Plan:** 02-02 complete — next: 02-03 (CaptureScreen component implementation)
+**Current Plan:** 02-03 complete — next: 02-04 (App.tsx integration of CaptureScreen)
 
 ---
 
 ## Next Actions
 
-1. Execute Plan 02-03: Implement CaptureScreen component (drives 6 RED stubs to GREEN)
-2. Execute Plan 02-04: Remaining Phase 2 tasks
-3. (Deferred from Phase 1) Configure Vercel account + add VERCEL_TOKEN, VERCEL_ORG_ID, VERCEL_PROJECT_ID secrets to GitHub repo
+1. Execute Plan 02-04: App.tsx integration (wire CaptureScreen into app shell)
+2. (Deferred from Phase 1) Configure Vercel account + add VERCEL_TOKEN, VERCEL_ORG_ID, VERCEL_PROJECT_ID secrets to GitHub repo
 
 ---
 
@@ -86,9 +85,13 @@ See: .planning/PROJECT.md (updated 2026-03-03)
 - [Phase 02-02]: id generation uses name+size+timestamp+random suffix to make same-file re-selection produce a distinct ID
 - [Phase 02-02]: DataTransfer polyfill added to test setup (jsdom 28 does not implement DataTransfer)
 - [Phase 02-02]: Non-image files silently filtered in useReceiptFiles — no error UI — OS picker already handles type restriction
+- [Phase 02-03]: CaptureScreen accepts isProcessing and error as controlled props (not useState) — lifted state pattern for Phase 3 AI integration
+- [Phase 02-03]: No capture attribute on file input — iOS shows native action sheet covering both CAPT-01 and CAPT-02 in one element
+- [Phase 02-03]: FileInputTrigger uses synchronous inputRef.current?.click() — no async wrappers (iOS Safari gesture requirement)
 
 ## Recent Activity
 
+- 2026-03-06: Plan 02-03 complete — CaptureScreen + 3 sub-components (FileInputTrigger, ImagePreviewList, UploadStatus); all 12 tests GREEN (commits: 2ccf6a2, 2ee209c)
 - 2026-03-06: Plan 02-02 complete — useReceiptFiles hook + FileWithPreview types; all 6 tests GREEN; DataTransfer polyfill for jsdom (commits: f722b92, 05ef02b)
 - 2026-03-06: Plan 02-01 complete — Vitest 4 + RTL test harness installed; 12 RED stubs for CAPT-01..05 (commits: 947aa90, 1dfb1bc)
 - 2026-03-03: Plan 01-03 automated tasks complete — vite-plugin-pwa manifest, 192/512px icons, GitHub Actions Vercel deploy (commits: 89ee9c7, dfe8eb9) — awaiting human action for deployment secrets
@@ -110,9 +113,10 @@ See: .planning/PROJECT.md (updated 2026-03-03)
 | 01-project-foundation | 03 | 8min | 2 | 6 |
 | 02-receipt-capture-interface | 01 | 5min | 2 | 6 |
 | 02-receipt-capture-interface | 02 | 4min | 2 | 3 |
+| 02-receipt-capture-interface | 03 | 5min | 2 | 4 |
 
 ---
 
 *State tracking initialized 2026-03-03*
-*Last session: 2026-03-06 — Stopped at: Completed 02-receipt-capture-interface/02-02-PLAN.md*
+*Last session: 2026-03-06 — Stopped at: Completed 02-receipt-capture-interface/02-03-PLAN.md*
 

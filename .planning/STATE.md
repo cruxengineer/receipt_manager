@@ -4,7 +4,7 @@ milestone: v1.0
 milestone_name: milestone
 current_plan: Not started
 status: unknown
-last_updated: "2026-03-07T05:14:08.058Z"
+last_updated: "2026-03-06T22:25:00.000Z"
 progress:
   total_phases: 8
   completed_phases: 2
@@ -14,7 +14,7 @@ progress:
 
 # Project State: ReceiptSplit
 
-**Last Updated:** 2026-03-07 (Plan 03-02 complete — PasswordGate component, 6 tests GREEN)
+**Last Updated:** 2026-03-06 (Plan 03-03 complete — ReviewScreen + SkippedRegionCrop, 15 tests GREEN)
 
 ## Project Reference
 
@@ -22,7 +22,7 @@ See: .planning/PROJECT.md (updated 2026-03-03)
 
 **Core value:** Fast, frictionless receipt splitting that feels natural on mobile and produces accurate totals every time.
 
-**Current focus:** Phase 3 in progress — 03-02 (PasswordGate) complete. Next: 03-03 (AI vision call), 03-04 (App wiring), 03-05 (ReviewScreen).
+**Current focus:** Phase 3 in progress — 03-01, 03-02, 03-03 complete. Next: 03-04 (App wiring + env vars).
 
 ---
 
@@ -34,7 +34,7 @@ See: .planning/PROJECT.md (updated 2026-03-03)
 |-------|--------|-------|----------|
 | 1 | ◑ In Progress | 3/3 | 100% (deployment pending human action) |
 | 2 | ● Complete | 4/4 | 100% |
-| 3 | ◑ In Progress | 2/4 | 50% |
+| 3 | ◑ In Progress | 3/4 | 75% |
 | 4 | ○ Pending | 0/0 | 0% |
 | 5 | ○ Pending | 0/0 | 0% |
 | 6 | ○ Pending | 0/0 | 0% |
@@ -47,18 +47,16 @@ See: .planning/PROJECT.md (updated 2026-03-03)
 
 ## Current Phase
 
-**Phase 3: AI Vision Integration** — In Progress. 03-02 (PasswordGate) complete. Next: 03-03 (AI vision hook), 03-04 (App wiring + gate), 03-05 (ReviewScreen).
+**Phase 3: AI Vision Integration** — In Progress. 03-01, 03-02, 03-03 complete. Next: 03-04 (App.tsx wiring + env vars).
 
-**Current Plan:** 03-03
+**Current Plan:** 03-04
 
 ---
 
 ## Next Actions
 
-1. Execute 03-03: AI vision hook (Anthropic API call, receipt parsing, mock mode)
-2. Execute 03-04: App.tsx wiring (gate + capture + processing + review state machine)
-3. Execute 03-05: ReviewScreen (extracted items, manual add/remove, start splitting CTA)
-4. (Deferred from Phase 1) Configure Vercel account + add VERCEL_TOKEN, VERCEL_ORG_ID, VERCEL_PROJECT_ID secrets to GitHub repo
+1. Execute 03-04: App.tsx wiring (PasswordGate + parseReceipt + ReviewScreen state machine, .env.local vars)
+2. (Deferred from Phase 1) Configure Vercel account + add VERCEL_TOKEN, VERCEL_ORG_ID, VERCEL_PROJECT_ID secrets to GitHub repo
 
 ---
 
@@ -96,10 +94,14 @@ See: .planning/PROJECT.md (updated 2026-03-03)
 - [Phase 03-01]: HEIC/HEIF media type normalized to image/jpeg for Anthropic API (API does not accept heic media type)
 - [Phase 03-02]: password inputs are not role=textbox in ARIA — test queries them via querySelector('input[type=password]') not getByRole('textbox')
 - [Phase 03-02]: PasswordGate is purely controlled via onUnlock prop — no internal sessionStorage; App.tsx (Plan 04) owns that logic
+- [Phase 03-03]: vi.spyOn Image mock must use function() not arrow fn — Vitest requires constructor-compatible implementations
+- [Phase 03-03]: SkippedRegionCrop guards sourceFiles[region.imageIndex] existence for empty-array test cases
+- [Phase 03-03]: ReviewScreen owns editedItems state — onConfirm only fires on Start splitting, not on each add/remove
 
 ## Recent Activity
 
 - 2026-03-07: Plan 03-01 complete — @anthropic-ai/sdk installed, shared AI types defined, parseReceipt service TDD; all 9 tests GREEN (commits: 5b0f2a8, 894f9c7, dd15476)
+- 2026-03-06: Plan 03-03 complete — ReviewScreen + SkippedRegionCrop; 15 tests GREEN; Image mock function() fix (commits: c472962, 98c93a5, a56e142, edeeb6e)
 - 2026-03-07: Plan 03-02 complete — PasswordGate component + 6 tests GREEN; AI-01 requirement validated (commits: d2b811a, 5a293eb)
 - 2026-03-05: Plan 02-04 complete — App.tsx wired to CaptureScreen, Phase 2 done; human-verified on iPhone Safari, all 12 tests GREEN (commit: 4d67292)
 - 2026-03-06: Plan 02-03 complete — CaptureScreen + 3 sub-components (FileInputTrigger, ImagePreviewList, UploadStatus); all 12 tests GREEN (commits: 2ccf6a2, 2ee209c)
@@ -128,9 +130,10 @@ See: .planning/PROJECT.md (updated 2026-03-03)
 | 02-receipt-capture-interface | 04 | 3min | 2 | 1 |
 | 03-ai-vision-integration | 01 | 3min | 2 | 5 |
 | 03-ai-vision-integration | 02 | 5min | 1 | 2 |
+| 03-ai-vision-integration | 03 | 15min | 2 | 4 |
 
 ---
 
 *State tracking initialized 2026-03-03*
-*Last session: 2026-03-07 — Stopped at: Completed 03-ai-vision-integration/03-02-PLAN.md*
+*Last session: 2026-03-06 — Stopped at: Completed 03-ai-vision-integration/03-03-PLAN.md*
 

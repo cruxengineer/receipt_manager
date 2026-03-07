@@ -91,7 +91,11 @@ Plans:
 **Requirements:**
 - PERS-01, PERS-02, PERS-03
 
-**Plans:** [To be planned]
+**Plans:** 2 plans
+
+Plans:
+- [ ] 04-01-PLAN.md — Wave 1: NamesModal component (TDD) — color-coded inputs, default names "Tom"/"Jerry"
+- [ ] 04-02-PLAN.md — Wave 2: Wire NamesModal into App.tsx state machine + human verify
 
 **Success Criteria:**
 1. User can set custom names for Person A and Person B before or during assignment
@@ -212,4 +216,4 @@ Plans:
 ---
 
 *Roadmap created: 2026-03-03*
-*Last updated: 2026-03-06 after Phase 3 planning (4 plans created)*
+*Last updated: 2026-03-07 after Phase 4 planning (2 plans created)*

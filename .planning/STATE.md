@@ -4,17 +4,17 @@ milestone: v1.0
 milestone_name: milestone
 current_plan: Not started
 status: unknown
-last_updated: "2026-03-06T06:56:38.054Z"
+last_updated: "2026-03-07T05:14:08.058Z"
 progress:
   total_phases: 8
   completed_phases: 2
-  total_plans: 7
-  completed_plans: 7
+  total_plans: 11
+  completed_plans: 8
 ---
 
 # Project State: ReceiptSplit
 
-**Last Updated:** 2026-03-05 (Plan 02-04 complete — CaptureScreen wired into App.tsx, Phase 2 done, all 12 tests GREEN)
+**Last Updated:** 2026-03-07 (Plan 03-02 complete — PasswordGate component, 6 tests GREEN)
 
 ## Project Reference
 
@@ -22,7 +22,7 @@ See: .planning/PROJECT.md (updated 2026-03-03)
 
 **Core value:** Fast, frictionless receipt splitting that feels natural on mobile and produces accurate totals every time.
 
-**Current focus:** Phase 2 complete — all 4 plans done (02-01 test harness, 02-02 hook, 02-03 components, 02-04 App wiring). Phase 3 (AI Integration) is next.
+**Current focus:** Phase 3 in progress — 03-02 (PasswordGate) complete. Next: 03-03 (AI vision call), 03-04 (App wiring), 03-05 (ReviewScreen).
 
 ---
 
@@ -34,7 +34,7 @@ See: .planning/PROJECT.md (updated 2026-03-03)
 |-------|--------|-------|----------|
 | 1 | ◑ In Progress | 3/3 | 100% (deployment pending human action) |
 | 2 | ● Complete | 4/4 | 100% |
-| 3 | ○ Pending | 0/0 | 0% |
+| 3 | ◑ In Progress | 1/4 | 25% |
 | 4 | ○ Pending | 0/0 | 0% |
 | 5 | ○ Pending | 0/0 | 0% |
 | 6 | ○ Pending | 0/0 | 0% |
@@ -47,16 +47,18 @@ See: .planning/PROJECT.md (updated 2026-03-03)
 
 ## Current Phase
 
-**Phase 2: Receipt Capture Interface** — COMPLETE. All 4 plans done: 02-01 (test harness), 02-02 (useReceiptFiles hook), 02-03 (CaptureScreen components), 02-04 (App.tsx integration + iPhone Safari verification)
+**Phase 3: AI Vision Integration** — In Progress. 03-02 (PasswordGate) complete. Next: 03-03 (AI vision hook), 03-04 (App wiring + gate), 03-05 (ReviewScreen).
 
-**Current Plan:** Not started
+**Current Plan:** 03-03
 
 ---
 
 ## Next Actions
 
-1. Execute Phase 3: AI Integration (Claude Vision API for receipt parsing)
-2. (Deferred from Phase 1) Configure Vercel account + add VERCEL_TOKEN, VERCEL_ORG_ID, VERCEL_PROJECT_ID secrets to GitHub repo
+1. Execute 03-03: AI vision hook (Anthropic API call, receipt parsing, mock mode)
+2. Execute 03-04: App.tsx wiring (gate + capture + processing + review state machine)
+3. Execute 03-05: ReviewScreen (extracted items, manual add/remove, start splitting CTA)
+4. (Deferred from Phase 1) Configure Vercel account + add VERCEL_TOKEN, VERCEL_ORG_ID, VERCEL_PROJECT_ID secrets to GitHub repo
 
 ---
 
@@ -90,9 +92,12 @@ See: .planning/PROJECT.md (updated 2026-03-03)
 - [Phase 02-03]: FileInputTrigger uses synchronous inputRef.current?.click() — no async wrappers (iOS Safari gesture requirement)
 - [Phase 02-04]: App.tsx owns isProcessing + error state — Phase 3 replaces handleSubmit stub with actual AI API call without touching CaptureScreen
 - [Phase 02-04]: 1.5-second setTimeout stub in handleSubmit surfaces loading spinner during development; commented setError line enables manual error-state testing
+- [Phase 03-02]: password inputs are not role=textbox in ARIA — test queries them via querySelector('input[type=password]') not getByRole('textbox')
+- [Phase 03-02]: PasswordGate is purely controlled via onUnlock prop — no internal sessionStorage; App.tsx (Plan 04) owns that logic
 
 ## Recent Activity
 
+- 2026-03-07: Plan 03-02 complete — PasswordGate component + 6 tests GREEN; AI-01 requirement validated (commits: d2b811a, 5a293eb)
 - 2026-03-05: Plan 02-04 complete — App.tsx wired to CaptureScreen, Phase 2 done; human-verified on iPhone Safari, all 12 tests GREEN (commit: 4d67292)
 - 2026-03-06: Plan 02-03 complete — CaptureScreen + 3 sub-components (FileInputTrigger, ImagePreviewList, UploadStatus); all 12 tests GREEN (commits: 2ccf6a2, 2ee209c)
 - 2026-03-06: Plan 02-02 complete — useReceiptFiles hook + FileWithPreview types; all 6 tests GREEN; DataTransfer polyfill for jsdom (commits: f722b92, 05ef02b)
@@ -118,9 +123,10 @@ See: .planning/PROJECT.md (updated 2026-03-03)
 | 02-receipt-capture-interface | 02 | 4min | 2 | 3 |
 | 02-receipt-capture-interface | 03 | 5min | 2 | 4 |
 | 02-receipt-capture-interface | 04 | 3min | 2 | 1 |
+| 03-ai-vision-integration | 02 | 5min | 1 | 2 |
 
 ---
 
 *State tracking initialized 2026-03-03*
-*Last session: 2026-03-05 — Stopped at: Completed 02-receipt-capture-interface/02-04-PLAN.md*
+*Last session: 2026-03-07 — Stopped at: Completed 03-ai-vision-integration/03-02-PLAN.md*
 

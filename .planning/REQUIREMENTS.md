@@ -17,7 +17,7 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### AI Processing
 
-- [ ] **AI-01**: App extracts items (name + price) from receipt image via AI vision API
+- [x] **AI-01**: App extracts items (name + price) from receipt image via AI vision API
 - [ ] **AI-02**: App returns structured item list within 5 seconds
 - [ ] **AI-03**: App extracts subtotal, tax, tip, and total if present on receipt
 - [ ] **AI-04**: App handles ambiguous items with best-guess extraction
@@ -108,7 +108,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | CAPT-03 | Phase 2 | Complete |
 | CAPT-04 | Phase 2 | Complete |
 | CAPT-05 | Phase 2 | Complete |
-| AI-01 | Phase 3 | Pending |
+| AI-01 | Phase 3 | Complete |
 | AI-02 | Phase 3 | Pending |
 | AI-03 | Phase 3 | Pending |
 | AI-04 | Phase 3 | Pending |

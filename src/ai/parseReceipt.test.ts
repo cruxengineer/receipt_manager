@@ -1,45 +1,41 @@
 /**
- * TDD tests for parseReceipt service.
- * RED: All tests written before implementation. They must fail initially.
+ * Tests for parseReceipt service.
+ * Real-API tests mock fetch (/api/parse-receipt) instead of @anthropic-ai/sdk
+ * since the API key is now a server-side secret.
  */
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import type { ParseReceiptResult, ReceiptItem } from '@/types/ai'
 
-// Shared mock create function — referenced by all real-API tests.
-// Declared at module scope so the vi.mock factory closure can reference it.
-const mockCreate = vi.fn()
-
-// Track constructor call count for Test 3 (no-SDK-call assertion)
-let anthropicConstructorCallCount = 0
-
-// Mock the Anthropic SDK before importing parseReceipt.
-// Must use a regular function (not arrow) so `new Anthropic()` works as a constructor.
-vi.mock('@anthropic-ai/sdk', () => {
-  return {
-    default: function MockAnthropic() {
-      anthropicConstructorCallCount++
-      return { messages: { create: mockCreate } }
-    },
-  }
-})
-
-// Helper: Create a minimal File object
 function makeFile(name = 'receipt.jpg', type = 'image/jpeg'): File {
   return new File(['fake-image-data'], name, { type })
 }
 
-// Helper: Build a stubbed Anthropic text response
-function makeAnthropicResponse(json: object): object {
-  return {
-    content: [{ type: 'text', text: JSON.stringify(json) }],
-  }
+function mockFetchOk(result: object) {
+  vi.stubGlobal(
+    'fetch',
+    vi.fn().mockResolvedValueOnce({
+      ok: true,
+      json: () => Promise.resolve(result),
+    }),
+  )
+}
+
+function mockFetchError(status: number, error: string) {
+  vi.stubGlobal(
+    'fetch',
+    vi.fn().mockResolvedValueOnce({
+      ok: false,
+      status,
+      json: () => Promise.resolve({ error }),
+    }),
+  )
 }
 
 describe('parseReceipt', () => {
   beforeEach(() => {
     vi.clearAllMocks()
     vi.unstubAllEnvs()
-    anthropicConstructorCallCount = 0
+    vi.unstubAllGlobals()
   })
 
   // ──────────────────────────────────────────────
@@ -70,55 +66,47 @@ describe('parseReceipt', () => {
     }
   })
 
-  it('Test 3 (mock no API call): Anthropic SDK is never instantiated in mock mode', async () => {
+  it('Test 3 (mock no API call): fetch is never called in mock mode', async () => {
     vi.stubEnv('VITE_MOCK_MODE', 'true')
+    const mockFetch = vi.fn()
+    vi.stubGlobal('fetch', mockFetch)
     const { parseReceipt } = await import('./parseReceipt')
+
     await parseReceipt([makeFile()])
 
-    expect(anthropicConstructorCallCount).toBe(0)
+    expect(mockFetch).not.toHaveBeenCalled()
   })
 
   // ──────────────────────────────────────────────
-  // Real API tests (VITE_MOCK_MODE unset/falsy)
+  // Real API tests (fetch-based, VITE_MOCK_MODE unset/falsy)
   // ──────────────────────────────────────────────
 
-  it('Test 4 (real API success): calls Anthropic with claude-3-5-sonnet-20241022 and image blocks', async () => {
+  it('Test 4 (real API success): POSTs to /api/parse-receipt with base64 image data', async () => {
     vi.stubEnv('VITE_MOCK_MODE', '')
-    mockCreate.mockResolvedValueOnce(
-      makeAnthropicResponse({ items: [{ name: 'Pizza', price: 12.0 }], skippedRegions: [] })
-    )
+    mockFetchOk({ items: [{ name: 'Pizza', price: 12.0 }], skippedRegions: [] })
 
     const { parseReceipt } = await import('./parseReceipt')
     const result = await parseReceipt([makeFile()])
 
-    expect(anthropicConstructorCallCount).toBeGreaterThan(0)
-    expect(mockCreate).toHaveBeenCalledWith(
+    expect(fetch).toHaveBeenCalledWith(
+      '/api/parse-receipt',
       expect.objectContaining({
-        model: 'claude-3-5-sonnet-20241022',
-        messages: expect.arrayContaining([
-          expect.objectContaining({
-            role: 'user',
-            content: expect.arrayContaining([
-              expect.objectContaining({ type: 'image' }),
-            ]),
-          }),
-        ]),
-      })
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+      }),
     )
     expect(result.items).toEqual([{ name: 'Pizza', price: 12.0 }])
   })
 
-  it('Test 5 (real API response parsing): returns correct name and price from stubbed response', async () => {
+  it('Test 5 (real API response parsing): returns correct name and price from server response', async () => {
     vi.stubEnv('VITE_MOCK_MODE', '')
-    mockCreate.mockResolvedValueOnce(
-      makeAnthropicResponse({
-        items: [
-          { name: 'Burger', price: 10.5 },
-          { name: 'Fries', price: 3.25 },
-        ],
-        skippedRegions: [],
-      })
-    )
+    mockFetchOk({
+      items: [
+        { name: 'Burger', price: 10.5 },
+        { name: 'Fries', price: 3.25 },
+      ],
+      skippedRegions: [],
+    })
 
     const { parseReceipt } = await import('./parseReceipt')
     const result = await parseReceipt([makeFile()])
@@ -129,18 +117,16 @@ describe('parseReceipt', () => {
     ])
   })
 
-  it('Test 6 (subtotal/total excluded): filters Subtotal and Total from returned items', async () => {
+  it('Test 6 (subtotal/total excluded): client filters Subtotal and Total from server response', async () => {
     vi.stubEnv('VITE_MOCK_MODE', '')
-    mockCreate.mockResolvedValueOnce(
-      makeAnthropicResponse({
-        items: [
-          { name: 'Coffee', price: 4.0 },
-          { name: 'Subtotal', price: 4.0 },
-          { name: 'Total', price: 4.0 },
-        ],
-        skippedRegions: [],
-      })
-    )
+    mockFetchOk({
+      items: [
+        { name: 'Coffee', price: 4.0 },
+        { name: 'Subtotal', price: 4.0 },
+        { name: 'Total', price: 4.0 },
+      ],
+      skippedRegions: [],
+    })
 
     const { parseReceipt } = await import('./parseReceipt')
     const result = await parseReceipt([makeFile()])
@@ -152,12 +138,10 @@ describe('parseReceipt', () => {
     expect(result.items[0].name).toBe('Coffee')
   })
 
-  it('Test 7 (skipped regions): returns skippedRegions from AI response', async () => {
+  it('Test 7 (skipped regions): returns skippedRegions from server response', async () => {
     vi.stubEnv('VITE_MOCK_MODE', '')
     const skipped = [{ imageIndex: 0, boundingBox: { x: 0.1, y: 0.4, width: 0.8, height: 0.05 } }]
-    mockCreate.mockResolvedValueOnce(
-      makeAnthropicResponse({ items: [], skippedRegions: skipped })
-    )
+    mockFetchOk({ items: [], skippedRegions: skipped })
 
     const { parseReceipt } = await import('./parseReceipt')
     const result = await parseReceipt([makeFile()])
@@ -165,27 +149,25 @@ describe('parseReceipt', () => {
     expect(result.skippedRegions).toEqual(skipped)
   })
 
-  it('Test 8 (API error): throws Error with user-readable message when SDK throws', async () => {
+  it('Test 8 (network error): throws user-readable error when fetch throws', async () => {
     vi.stubEnv('VITE_MOCK_MODE', '')
-    mockCreate.mockRejectedValueOnce(new Error('Network failure'))
+    vi.stubGlobal('fetch', vi.fn().mockRejectedValueOnce(new Error('Network failure')))
 
     const { parseReceipt } = await import('./parseReceipt')
 
     await expect(parseReceipt([makeFile()])).rejects.toThrow(
-      'Could not reach the AI service. Check your connection and try again.'
+      'Could not reach the AI service. Check your connection and try again.',
     )
   })
 
-  it('Test 9 (invalid JSON in response): throws Error with user-readable message when AI returns non-JSON', async () => {
+  it('Test 9 (server error): throws error message from server error response', async () => {
     vi.stubEnv('VITE_MOCK_MODE', '')
-    mockCreate.mockResolvedValueOnce({
-      content: [{ type: 'text', text: 'Sorry, I cannot read that receipt.' }],
-    })
+    mockFetchError(500, 'AI returned an unreadable response. Please try again.')
 
     const { parseReceipt } = await import('./parseReceipt')
 
     await expect(parseReceipt([makeFile()])).rejects.toThrow(
-      'AI returned an unreadable response. Please try again.'
+      'AI returned an unreadable response. Please try again.',
     )
   })
 })

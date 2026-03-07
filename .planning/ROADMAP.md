@@ -201,7 +201,7 @@ Plans:
 | 1 | 3/3 | Complete   | 2026-03-04 |
 | 2 | 4/4 | Complete    | 2026-03-06 |
 | 3 | 1/4 | In Progress|  |
-| 4 | 2/2 | Complete   | 2026-03-07 |
+| 4 | 2/2 | Complete    | 2026-03-07 |
 | 5 | 9 | High | Phase 2, 3, 4 |
 | 6 | 7 | Medium | Phase 5 |
 | 7 | 4 | Medium | Phase 5, 6 |

@@ -64,7 +64,13 @@ Plans:
 **Requirements:**
 - AI-01, AI-02, AI-03, AI-04, AI-05
 
-**Plans:** [To be planned]
+**Plans:** 4 plans
+
+Plans:
+- [ ] 03-01-PLAN.md — Wave 1 (parallel): Install Anthropic SDK, define AI types, implement parseReceipt with TDD
+- [ ] 03-02-PLAN.md — Wave 1 (parallel): PasswordGate component with tests
+- [ ] 03-03-PLAN.md — Wave 2: ReviewScreen component with item add/remove and skipped-regions message
+- [ ] 03-04-PLAN.md — Wave 3: Wire App.tsx state machine (gate → capture → processing → review → swipe) + human verify
 
 **Success Criteria:**
 1. App sends receipt image to AI vision API with structured prompt
@@ -206,4 +212,4 @@ Plans:
 ---
 
 *Roadmap created: 2026-03-03*
-*Last updated: 2026-03-05 after Phase 2 planning (4 plans created)*
+*Last updated: 2026-03-06 after Phase 3 planning (4 plans created)*

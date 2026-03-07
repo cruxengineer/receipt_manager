@@ -15,6 +15,7 @@ function App() {
     return sessionStorage.getItem(SESSION_KEY) === 'true' ? 'capture' : 'gate'
   })
   const [error, setError] = useState<string | null>(null)
+  const [parseAttempts, setParseAttempts] = useState(0)
   const [reviewItems, setReviewItems] = useState<ReceiptItem[]>([])
   const [skippedRegions, setSkippedRegions] = useState<SkippedRegion[]>([])
   // sourceFiles held in state so ReviewScreen can render canvas crops for skipped regions
@@ -35,8 +36,10 @@ function App() {
       const result = await parseReceipt(files)
       setReviewItems(result.items)
       setSkippedRegions(result.skippedRegions)
+      setParseAttempts(0)
       setAppState('review')
     } catch (err) {
+      setParseAttempts((n) => n + 1)
       setError(err instanceof Error ? err.message : 'Something went wrong. Please try again.')
       setAppState('capture')
     }
@@ -45,6 +48,14 @@ function App() {
   const handleRetry = () => {
     setError(null)
     setAppState('capture')
+  }
+
+  const handleAddManually = () => {
+    setError(null)
+    setParseAttempts(0)
+    setReviewItems([])
+    setSkippedRegions([])
+    setAppState('review')
   }
 
   const handleConfirm = (items: ReceiptItem[]) => {
@@ -87,6 +98,7 @@ function App() {
       isProcessing={appState === 'processing'}
       error={error}
       onRetry={handleRetry}
+      onAddManually={parseAttempts >= 2 ? handleAddManually : undefined}
       onSubmit={handleSubmit}
     />
   )

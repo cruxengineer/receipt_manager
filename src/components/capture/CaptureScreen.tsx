@@ -21,6 +21,11 @@ interface CaptureScreenProps {
    */
   onRetry?: () => void
   /**
+   * Called when the user opts to add items manually after repeated failures.
+   * When provided (after 2+ failures), shown alongside the retry button.
+   */
+  onAddManually?: () => void
+  /**
    * Called when the user taps "Process Receipts".
    * Receives the selected File objects for the caller to submit to AI.
    * Phase 3 will wire this to the AI processing hook.
@@ -42,6 +47,7 @@ export default function CaptureScreen({
   isProcessing = false,
   error = null,
   onRetry,
+  onAddManually,
   onSubmit,
 }: CaptureScreenProps) {
   const { files, addFiles, removeFile, clearFiles } = useReceiptFiles()
@@ -76,6 +82,7 @@ export default function CaptureScreen({
             isProcessing={isProcessing}
             error={error}
             onRetry={handleRetry}
+            onAddManually={onAddManually}
           />
 
           {/* Add photos button — hidden while processing or showing error */}

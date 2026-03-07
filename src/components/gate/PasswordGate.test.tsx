@@ -9,7 +9,9 @@ describe('PasswordGate', () => {
     const onUnlock = vi.fn()
     render(<PasswordGate onUnlock={onUnlock} />)
 
-    expect(screen.getByRole('textbox', { hidden: true }) || screen.getByPlaceholderText(/passphrase/i) || document.querySelector('input[type="password"]')).toBeTruthy()
+    // password inputs are not role="textbox" — query by type directly
+    const input = document.querySelector('input[type="password"]')
+    expect(input).toBeInTheDocument()
     expect(screen.getByRole('button', { name: /unlock/i })).toBeInTheDocument()
   })
 

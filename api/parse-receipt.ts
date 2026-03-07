@@ -38,8 +38,11 @@ export default async function handler(
 
   const apiKey = process.env.ANTHROPIC_API_KEY
   if (!apiKey) {
+    console.error('[parse-receipt] ANTHROPIC_API_KEY is not set')
     return res.status(500).json({ error: 'API not configured' })
   }
+
+  console.log('[parse-receipt] Starting Anthropic call, images:', images.length)
 
   try {
     const client = new Anthropic({ apiKey })
@@ -85,11 +88,13 @@ export default async function handler(
       skippedRegions: Array.isArray(parsed.skippedRegions) ? parsed.skippedRegions : [],
     })
   } catch (err) {
+    console.error('[parse-receipt] Error:', err)
     if (err instanceof SyntaxError) {
       return res.status(500).json({ error: 'AI returned an unreadable response. Please try again.' })
     }
+    const message = err instanceof Error ? err.message : String(err)
     return res.status(500).json({
-      error: 'Could not reach the AI service. Check your connection and try again.',
+      error: `Server error: ${message}`,
     })
   }
 }

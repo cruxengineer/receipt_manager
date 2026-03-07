@@ -2,19 +2,19 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-current_plan: Not started
-status: unknown
-last_updated: "2026-03-07T18:06:54.377Z"
+current_plan: 05-01 complete
+status: in_progress
+last_updated: "2026-03-07T18:39:32.237Z"
 progress:
   total_phases: 8
   completed_phases: 4
-  total_plans: 13
-  completed_plans: 13
+  total_plans: 16
+  completed_plans: 14
 ---
 
 # Project State: ReceiptSplit
 
-**Last Updated:** 2026-03-07 (Plan 04-02 complete — NamesModal wired into App.tsx, human-verified on device, Phase 4 complete)
+**Last Updated:** 2026-03-07 (Plan 05-01 complete — swipe types + useSwipeGesture hook TDD, 56/56 tests GREEN)
 
 ## Project Reference
 
@@ -22,7 +22,7 @@ See: .planning/PROJECT.md (updated 2026-03-03)
 
 **Core value:** Fast, frictionless receipt splitting that feels natural on mobile and produces accurate totals every time.
 
-**Current focus:** Phase 4 complete. Next: Phase 5 (Swipe Interface Core) — planning needed.
+**Current focus:** Phase 5 (Swipe Interface Core) in progress — 05-01 done (types + gesture hook). Next: 05-02 (SwipeCard component).
 
 ---
 
@@ -36,35 +36,36 @@ See: .planning/PROJECT.md (updated 2026-03-03)
 | 2 | ● Complete | 4/4 | 100% |
 | 3 | ● Complete | 4/4 | 100% |
 | 4 | ● Complete | 2/2 | 100% |
-| 5 | ○ Pending | 0/0 | 0% |
+| 5 | ◑ In Progress | 1/3 | 33% |
 | 6 | ○ Pending | 0/0 | 0% |
 | 7 | ○ Pending | 0/0 | 0% |
 | 8 | ○ Pending | 0/0 | 0% |
 
-**Overall:** [██████████] 100% — 13/13 plans complete
+**Overall:** [█████████░] 88% — 14/16 plans complete
 
 ---
 
 ## Current Phase
 
-**Phase 4: Person Management** — Complete. Both plans (04-01 NamesModal TDD, 04-02 App.tsx wiring) done.
+**Phase 5: Swipe Interface Core** — In progress. 05-01 (swipe types + useSwipeGesture hook) complete.
 
-**Current Plan:** Not started
+**Current Plan:** 05-01 complete — next: 05-02 (SwipeCard component)
 
 ---
 
 ## Next Actions
 
-1. Plan Phase 5 — Swipe Interface Core (card-based item assignment with gesture support)
-2. (Deferred from Phase 1) Configure Vercel account + add VERCEL_TOKEN, VERCEL_ORG_ID, VERCEL_PROJECT_ID secrets to GitHub repo
+1. Execute 05-02 — SwipeCard component (drag visual feedback: tilt, tint, name label)
+2. Execute 05-03 — SwipeScreen (full screen with totals bar, progress, split button, undo, restart)
+3. (Deferred from Phase 1) Configure Vercel account + add VERCEL_TOKEN, VERCEL_ORG_ID, VERCEL_PROJECT_ID secrets to GitHub repo
 
 ---
 
 ## Requirements Status
 
 **v1 Requirements:** 32 total
-- ✓ Validated: 12 (DEPL-01 confirmed by 01-02; DEPL-01..DEPL-03 addressed by 01-03; CAPT-01..CAPT-05 verified in Phase 2 — live deployment pending; PERS-01..PERS-03 delivered by 04-01)
-- ○ Pending: 20
+- ✓ Validated: 16 (DEPL-01 confirmed by 01-02; DEPL-01..DEPL-03 addressed by 01-03; CAPT-01..CAPT-05 verified in Phase 2 — live deployment pending; PERS-01..PERS-03 delivered by 04-01; SWIP-02, SWIP-03, SWIP-05, SWIP-06 delivered by 05-01)
+- ○ Pending: 16
 - ✗ Blocked: 0
 
 ---
@@ -103,9 +104,13 @@ See: .planning/PROJECT.md (updated 2026-03-03)
 - [Phase 04-01]: NamesModal fallback in handleSubmit (trim() || default) not in tests; named export matches project conventions
 - [Phase 04-02]: Returning users bypass 'names' state via lazy useState initializer — sessionStorage check on mount sends them directly to 'capture' with default names intact
 - [Phase 04-02]: Human verify confirmed all 9 steps pass: names screen after gate, blue/green color coding, custom names stored, session bypass works, no console errors
+- [Phase 05-01]: dragXRef mirrors dragX state so onPointerUp can read committed status without stale closure — avoids functional setState complexity
+- [Phase 05-01]: setPointerCapture guarded by try/catch — jsdom does not implement it, but mobile requires it for smooth off-element tracking
+- [Phase 05-01]: On committed pointerUp, dragX is left intact — SwipeScreen calls reset() explicitly after fly-off animation (~300ms)
 
 ## Recent Activity
 
+- 2026-03-07: Plan 05-01 complete — swipe types (ItemAssignment, SwipeAssignments) + useSwipeGesture hook TDD; SWIP-02/03/05/06 delivered; 56/56 tests GREEN (commits: 16c1960, f78a4dd, 3560f98)
 - 2026-03-07: Plan 04-02 complete — NamesModal wired into App.tsx; human-verified all 9 steps on device; Phase 4 complete (commit: 5a3557b)
 - 2026-03-07: Plan 04-01 complete — NamesModal TDD; PERS-01..PERS-03 delivered; 48/48 tests GREEN (commits: 5199dc5, 47983d3)
 - 2026-03-06: Plan 03-04 complete — App.tsx state machine wired, human-verified mock flow, 42/42 tests GREEN (commit: 0097247)
@@ -143,9 +148,10 @@ See: .planning/PROJECT.md (updated 2026-03-03)
 | 03-ai-vision-integration | 04 | 10min | 2 | 2 |
 | 04-person-management | 01 | 4min | 2 | 2 |
 | 04-person-management | 02 | 15min | 2 | 1 |
+| 05-swipe-interface-core | 01 | 2min | 3 | 3 |
 
 ---
 
 *State tracking initialized 2026-03-03*
-*Last session: 2026-03-07 — Stopped at: Completed 04-person-management/04-02-PLAN.md*
+*Last session: 2026-03-07 — Stopped at: Completed 05-swipe-interface-core/05-01-PLAN.md*
 

@@ -9,15 +9,21 @@ interface ReviewScreenProps {
   skippedRegions: SkippedRegion[]
   /** Original uploaded receipt files — used to render canvas crops for skipped regions. */
   sourceFiles: File[]
+  /** True when items came from an AI parse attempt (even if 0 items returned). */
+  aiAttempted?: boolean
   /** Called when user taps "Start splitting" with the final (possibly edited) item list */
   onConfirm: (items: ReceiptItem[]) => void
+  /** Called when user wants to go back to the capture screen. */
+  onBack?: () => void
 }
 
 export function ReviewScreen({
   items,
   skippedRegions,
   sourceFiles,
+  aiAttempted = false,
   onConfirm,
+  onBack,
 }: ReviewScreenProps) {
   const [editedItems, setEditedItems] = useState<ReceiptItem[]>(() => [...items])
   const [newName, setNewName] = useState('')
@@ -49,11 +55,24 @@ export function ReviewScreen({
       <div className="max-w-md mx-auto space-y-4">
 
         {/* Header */}
-        <header className="text-center py-6">
-          <h1 className="text-2xl font-bold text-gray-900">Review Items</h1>
-          <p className="text-gray-500 mt-1 text-sm">
-            {editedItems.length} item{editedItems.length !== 1 ? 's' : ''} extracted
-          </p>
+        <header className="py-6">
+          {onBack && (
+            <button
+              type="button"
+              onClick={onBack}
+              className="text-sm text-gray-400 hover:text-gray-600 mb-4 flex items-center gap-1"
+            >
+              ← Retake photo
+            </button>
+          )}
+          <div className="text-center">
+            <h1 className="text-2xl font-bold text-gray-900">Review Items</h1>
+            <p className="text-gray-500 mt-1 text-sm">
+              {aiAttempted && editedItems.length === 0
+                ? 'Image processing returned no items — add them manually below'
+                : `${editedItems.length} item${editedItems.length !== 1 ? 's' : ''} extracted`}
+            </p>
+          </div>
         </header>
 
         {/* Main card */}

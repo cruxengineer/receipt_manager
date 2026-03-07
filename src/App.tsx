@@ -15,6 +15,7 @@ function App() {
     return sessionStorage.getItem(SESSION_KEY) === 'true' ? 'capture' : 'gate'
   })
   const [error, setError] = useState<string | null>(null)
+  const [aiAttempted, setAiAttempted] = useState(false)
   const [reviewItems, setReviewItems] = useState<ReceiptItem[]>([])
   const [skippedRegions, setSkippedRegions] = useState<SkippedRegion[]>([])
   // sourceFiles held in state so ReviewScreen can render canvas crops for skipped regions
@@ -35,6 +36,7 @@ function App() {
       const result = await parseReceipt(files)
       setReviewItems(result.items)
       setSkippedRegions(result.skippedRegions)
+      setAiAttempted(true)
       setAppState('review')
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Something went wrong. Please try again.')
@@ -49,9 +51,14 @@ function App() {
 
   const handleAddManually = () => {
     setError(null)
+    setAiAttempted(false)
     setReviewItems([])
     setSkippedRegions([])
     setAppState('review')
+  }
+
+  const handleBack = () => {
+    setAppState('capture')
   }
 
   const handleConfirm = (items: ReceiptItem[]) => {
@@ -71,7 +78,9 @@ function App() {
         items={reviewItems}
         skippedRegions={skippedRegions}
         sourceFiles={sourceFiles}
+        aiAttempted={aiAttempted}
         onConfirm={handleConfirm}
+        onBack={handleBack}
       />
     )
   }

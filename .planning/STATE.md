@@ -14,7 +14,7 @@ progress:
 
 # Project State: ReceiptSplit
 
-**Last Updated:** 2026-03-06 (Plan 03-03 complete — ReviewScreen + SkippedRegionCrop, 15 tests GREEN)
+**Last Updated:** 2026-03-06 (Plan 03-04 complete — App.tsx state machine, Phase 3 done, 42/42 tests GREEN)
 
 ## Project Reference
 
@@ -22,7 +22,7 @@ See: .planning/PROJECT.md (updated 2026-03-03)
 
 **Core value:** Fast, frictionless receipt splitting that feels natural on mobile and produces accurate totals every time.
 
-**Current focus:** Phase 3 in progress — 03-01, 03-02, 03-03 complete. Next: 03-04 (App wiring + env vars).
+**Current focus:** Phase 3 complete — all 4 plans done. Next: Phase 4 planning.
 
 ---
 
@@ -34,7 +34,7 @@ See: .planning/PROJECT.md (updated 2026-03-03)
 |-------|--------|-------|----------|
 | 1 | ◑ In Progress | 3/3 | 100% (deployment pending human action) |
 | 2 | ● Complete | 4/4 | 100% |
-| 3 | ◑ In Progress | 3/4 | 75% |
+| 3 | ● Complete | 4/4 | 100% |
 | 4 | ○ Pending | 0/0 | 0% |
 | 5 | ○ Pending | 0/0 | 0% |
 | 6 | ○ Pending | 0/0 | 0% |
@@ -47,15 +47,15 @@ See: .planning/PROJECT.md (updated 2026-03-03)
 
 ## Current Phase
 
-**Phase 3: AI Vision Integration** — In Progress. 03-01, 03-02, 03-03 complete. Next: 03-04 (App.tsx wiring + env vars).
+**Phase 3: AI Vision Integration** — Complete. All 4 plans done. Human-verified mock mode flow.
 
-**Current Plan:** 03-04
+**Current Plan:** Phase 4 pending
 
 ---
 
 ## Next Actions
 
-1. Execute 03-04: App.tsx wiring (PasswordGate + parseReceipt + ReviewScreen state machine, .env.local vars)
+1. Run `/gsd:plan-phase 4` — plan Phase 4
 2. (Deferred from Phase 1) Configure Vercel account + add VERCEL_TOKEN, VERCEL_ORG_ID, VERCEL_PROJECT_ID secrets to GitHub repo
 
 ---
@@ -97,9 +97,12 @@ See: .planning/PROJECT.md (updated 2026-03-03)
 - [Phase 03-03]: vi.spyOn Image mock must use function() not arrow fn — Vitest requires constructor-compatible implementations
 - [Phase 03-03]: SkippedRegionCrop guards sourceFiles[region.imageIndex] existence for empty-array test cases
 - [Phase 03-03]: ReviewScreen owns editedItems state — onConfirm only fires on Start splitting, not on each add/remove
+- [Phase 03-04]: sessionStorage (not localStorage) used for gate persistence — intentional per-tab isolation
+- [Phase 03-04]: sourceFiles stored in state BEFORE async parseReceipt call so canvas crops always reference original files
 
 ## Recent Activity
 
+- 2026-03-06: Plan 03-04 complete — App.tsx state machine wired, human-verified mock flow, 42/42 tests GREEN (commit: 0097247)
 - 2026-03-07: Plan 03-01 complete — @anthropic-ai/sdk installed, shared AI types defined, parseReceipt service TDD; all 9 tests GREEN (commits: 5b0f2a8, 894f9c7, dd15476)
 - 2026-03-06: Plan 03-03 complete — ReviewScreen + SkippedRegionCrop; 15 tests GREEN; Image mock function() fix (commits: c472962, 98c93a5, a56e142, edeeb6e)
 - 2026-03-07: Plan 03-02 complete — PasswordGate component + 6 tests GREEN; AI-01 requirement validated (commits: d2b811a, 5a293eb)
@@ -131,9 +134,10 @@ See: .planning/PROJECT.md (updated 2026-03-03)
 | 03-ai-vision-integration | 01 | 3min | 2 | 5 |
 | 03-ai-vision-integration | 02 | 5min | 1 | 2 |
 | 03-ai-vision-integration | 03 | 15min | 2 | 4 |
+| 03-ai-vision-integration | 04 | 10min | 2 | 2 |
 
 ---
 
 *State tracking initialized 2026-03-03*
-*Last session: 2026-03-06 — Stopped at: Completed 03-ai-vision-integration/03-03-PLAN.md*
+*Last session: 2026-03-06 — Stopped at: Completed 03-ai-vision-integration/03-04-PLAN.md (Phase 3 complete)*
 

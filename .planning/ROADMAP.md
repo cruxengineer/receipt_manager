@@ -114,7 +114,12 @@ Plans:
 **Requirements:**
 - SWIP-01, SWIP-02, SWIP-03, SWIP-04, SWIP-05, SWIP-06, SWIP-07, SWIP-08, SWIP-09
 
-**Plans:** [To be planned]
+**Plans:** 3 plans
+
+Plans:
+- [ ] 05-01-PLAN.md — Wave 1 (TDD): ItemAssignment types + useSwipeGesture hook (drag tracking, threshold commit, snap-back)
+- [ ] 05-02-PLAN.md — Wave 2 (TDD): SwipeScreen component (card display, totals, progress, split, undo, all-done state)
+- [ ] 05-03-PLAN.md — Wave 3: Wire SwipeScreen into App.tsx + human verify on iPhone Safari
 
 **Success Criteria:**
 1. One item card displayed at a time, centered on screen
@@ -216,4 +221,4 @@ Plans:
 ---
 
 *Roadmap created: 2026-03-03*
-*Last updated: 2026-03-07 after Phase 4 planning (2 plans created)*
+*Last updated: 2026-03-07 after Phase 5 planning (3 plans created)*

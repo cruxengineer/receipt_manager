@@ -4,6 +4,7 @@ const SYSTEM_PROMPT = `You are a receipt parser. Extract line items from receipt
 
 Rules:
 - Return ONLY a JSON object, no prose, no markdown code fences
+- If the image is not a receipt or no items can be identified, return {"items": [], "skippedRegions": []}
 - Include each purchased item as { "name": string, "price": number }
 - Include Tax and Tip as named items if present (e.g., { "name": "Tax", "price": 2.50 })
 - Do NOT include Subtotal or Total lines — these are derived values
@@ -80,7 +81,7 @@ export default async function handler(
 
     const parsed = JSON.parse(block.text) as { items?: unknown; skippedRegions?: unknown }
     if (!Array.isArray(parsed.items)) {
-      return res.status(500).json({ error: 'AI returned an unreadable response. Please try again.' })
+      return res.status(500).json({ error: 'Could not read the receipt. Try a clearer photo and try again.' })
     }
 
     return res.json({
@@ -90,7 +91,7 @@ export default async function handler(
   } catch (err) {
     console.error('[parse-receipt] Error:', err)
     if (err instanceof SyntaxError) {
-      return res.status(500).json({ error: 'AI returned an unreadable response. Please try again.' })
+      return res.status(500).json({ error: 'Could not read the receipt. Try a clearer photo and try again.' })
     }
     const message = err instanceof Error ? err.message : String(err)
     return res.status(500).json({

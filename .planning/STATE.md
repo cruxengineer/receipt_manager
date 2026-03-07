@@ -2,19 +2,19 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-current_plan: Phase 4 pending
+current_plan: Phase 4, Plan 02 (App.tsx names state integration)
 status: unknown
-last_updated: "2026-03-07T17:51:29.789Z"
+last_updated: "2026-03-07T18:01:45.157Z"
 progress:
   total_phases: 8
-  completed_phases: 3
+  completed_phases: 4
   total_plans: 13
-  completed_plans: 12
+  completed_plans: 13
 ---
 
 # Project State: ReceiptSplit
 
-**Last Updated:** 2026-03-07 (Plan 04-01 complete — NamesModal TDD, 48/48 tests GREEN)
+**Last Updated:** 2026-03-07 (Plan 04-02 complete — NamesModal wired into App.tsx, human-verified on device, Phase 4 complete)
 
 ## Project Reference
 
@@ -22,7 +22,7 @@ See: .planning/PROJECT.md (updated 2026-03-03)
 
 **Core value:** Fast, frictionless receipt splitting that feels natural on mobile and produces accurate totals every time.
 
-**Current focus:** Phase 4 in progress — Plan 04-01 done (NamesModal). Next: Plan 04-02 (App.tsx names integration).
+**Current focus:** Phase 4 complete. Next: Phase 5 (Swipe Interface Core) — planning needed.
 
 ---
 
@@ -35,27 +35,27 @@ See: .planning/PROJECT.md (updated 2026-03-03)
 | 1 | ◑ In Progress | 3/3 | 100% (deployment pending human action) |
 | 2 | ● Complete | 4/4 | 100% |
 | 3 | ● Complete | 4/4 | 100% |
-| 4 | ◑ In Progress | 1/2 | 50% |
+| 4 | ● Complete | 2/2 | 100% |
 | 5 | ○ Pending | 0/0 | 0% |
 | 6 | ○ Pending | 0/0 | 0% |
 | 7 | ○ Pending | 0/0 | 0% |
 | 8 | ○ Pending | 0/0 | 0% |
 
-**Overall:** [█████████░] 92% — 12/13 plans complete
+**Overall:** [██████████] 100% — 13/13 plans complete
 
 ---
 
 ## Current Phase
 
-**Phase 4: Person Management** — In Progress. Plan 04-01 done.
+**Phase 4: Person Management** — Complete. Both plans (04-01 NamesModal TDD, 04-02 App.tsx wiring) done.
 
-**Current Plan:** Phase 4, Plan 02 (App.tsx names state integration)
+**Current Plan:** Phase 5 (Swipe Interface Core) — planning not yet started
 
 ---
 
 ## Next Actions
 
-1. Execute Plan 04-02 — wire NamesModal into App.tsx state machine
+1. Plan Phase 5 — Swipe Interface Core (card-based item assignment with gesture support)
 2. (Deferred from Phase 1) Configure Vercel account + add VERCEL_TOKEN, VERCEL_ORG_ID, VERCEL_PROJECT_ID secrets to GitHub repo
 
 ---
@@ -101,9 +101,12 @@ See: .planning/PROJECT.md (updated 2026-03-03)
 - [Phase 03-04]: sourceFiles stored in state BEFORE async parseReceipt call so canvas crops always reference original files
 - [Phase 04-01]: inline-style color tokens on wrapper divs (var(--color-person-a)/@theme) so label inherits color; wrapper visible to test querySelector('[style*]')
 - [Phase 04-01]: NamesModal fallback in handleSubmit (trim() || default) not in tests; named export matches project conventions
+- [Phase 04-02]: Returning users bypass 'names' state via lazy useState initializer — sessionStorage check on mount sends them directly to 'capture' with default names intact
+- [Phase 04-02]: Human verify confirmed all 9 steps pass: names screen after gate, blue/green color coding, custom names stored, session bypass works, no console errors
 
 ## Recent Activity
 
+- 2026-03-07: Plan 04-02 complete — NamesModal wired into App.tsx; human-verified all 9 steps on device; Phase 4 complete (commit: 5a3557b)
 - 2026-03-07: Plan 04-01 complete — NamesModal TDD; PERS-01..PERS-03 delivered; 48/48 tests GREEN (commits: 5199dc5, 47983d3)
 - 2026-03-06: Plan 03-04 complete — App.tsx state machine wired, human-verified mock flow, 42/42 tests GREEN (commit: 0097247)
 - 2026-03-07: Plan 03-01 complete — @anthropic-ai/sdk installed, shared AI types defined, parseReceipt service TDD; all 9 tests GREEN (commits: 5b0f2a8, 894f9c7, dd15476)
@@ -139,9 +142,10 @@ See: .planning/PROJECT.md (updated 2026-03-03)
 | 03-ai-vision-integration | 03 | 15min | 2 | 4 |
 | 03-ai-vision-integration | 04 | 10min | 2 | 2 |
 | 04-person-management | 01 | 4min | 2 | 2 |
+| 04-person-management | 02 | 15min | 2 | 1 |
 
 ---
 
 *State tracking initialized 2026-03-03*
-*Last session: 2026-03-07 — Stopped at: Completed 04-person-management/04-01-PLAN.md*
+*Last session: 2026-03-07 — Stopped at: Completed 04-person-management/04-02-PLAN.md*
 

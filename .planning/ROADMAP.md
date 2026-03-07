@@ -91,11 +91,11 @@ Plans:
 **Requirements:**
 - PERS-01, PERS-02, PERS-03
 
-**Plans:** 1/2 plans executed
+**Plans:** 2/2 plans complete
 
 Plans:
-- [ ] 04-01-PLAN.md — Wave 1: NamesModal component (TDD) — color-coded inputs, default names "Tom"/"Jerry"
-- [ ] 04-02-PLAN.md — Wave 2: Wire NamesModal into App.tsx state machine + human verify
+- [x] 04-01-PLAN.md — Wave 1: NamesModal component (TDD) — color-coded inputs, default names "Tom"/"Jerry"
+- [x] 04-02-PLAN.md — Wave 2: Wire NamesModal into App.tsx state machine + human verify
 
 **Success Criteria:**
 1. User can set custom names for Person A and Person B before or during assignment
@@ -201,7 +201,7 @@ Plans:
 | 1 | 3/3 | Complete   | 2026-03-04 |
 | 2 | 4/4 | Complete    | 2026-03-06 |
 | 3 | 1/4 | In Progress|  |
-| 4 | 1/2 | In Progress|  |
+| 4 | 2/2 | Complete   | 2026-03-07 |
 | 5 | 9 | High | Phase 2, 3, 4 |
 | 6 | 7 | Medium | Phase 5 |
 | 7 | 4 | Medium | Phase 5, 6 |

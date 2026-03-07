@@ -82,7 +82,6 @@ export default function CaptureScreen({
             isProcessing={isProcessing}
             error={error}
             onRetry={handleRetry}
-            onAddManually={onAddManually}
           />
 
           {/* Add photos button — hidden while processing or showing error */}
@@ -109,6 +108,20 @@ export default function CaptureScreen({
             </Button>
           )}
         </div>
+
+        {/* Always-available manual entry fallback */}
+        {onAddManually && !isProcessing && (
+          <p className="text-center text-sm text-gray-400">
+            or{' '}
+            <button
+              type="button"
+              onClick={onAddManually}
+              className="underline underline-offset-2 hover:text-gray-600"
+            >
+              add items manually
+            </button>
+          </p>
+        )}
 
       </div>
     </div>

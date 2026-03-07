@@ -5,7 +5,6 @@ interface UploadStatusProps {
   isProcessing?: boolean
   error?: string | null
   onRetry?: () => void
-  onAddManually?: () => void
 }
 
 /**
@@ -16,7 +15,7 @@ interface UploadStatusProps {
  *   - Spinner: role="status" + aria-live="polite" announces to screen readers
  *   - Error: role="alert" announces immediately (aria-live="assertive" implicit)
  */
-export function UploadStatus({ isProcessing, error, onRetry, onAddManually }: UploadStatusProps) {
+export function UploadStatus({ isProcessing, error, onRetry }: UploadStatusProps) {
   if (isProcessing) {
     return (
       <div
@@ -63,22 +62,10 @@ export function UploadStatus({ isProcessing, error, onRetry, onAddManually }: Up
           />
           <div className="flex-1">
             <p className="text-sm font-medium text-red-800">{error}</p>
-            <div className="flex flex-wrap gap-2 mt-2">
-              {onRetry && (
-                <Button variant="outline" size="sm" onClick={onRetry}>
-                  Try again
-                </Button>
-              )}
-              {onAddManually && (
-                <Button variant="ghost" size="sm" onClick={onAddManually}>
-                  Add items manually
-                </Button>
-              )}
-            </div>
-            {onAddManually && (
-              <p className="text-xs text-red-700 mt-1">
-                Having trouble? You can add items by hand instead.
-              </p>
+            {onRetry && (
+              <Button variant="outline" size="sm" className="mt-2" onClick={onRetry}>
+                Try again
+              </Button>
             )}
           </div>
         </div>

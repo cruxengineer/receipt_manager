@@ -64,10 +64,10 @@ Plans:
 **Requirements:**
 - AI-01, AI-02, AI-03, AI-04, AI-05
 
-**Plans:** 1/4 plans executed
+**Plans:** 2/4 plans executed
 
 Plans:
-- [ ] 03-01-PLAN.md — Wave 1 (parallel): Install Anthropic SDK, define AI types, implement parseReceipt with TDD
+- [x] 03-01-PLAN.md — Wave 1 (parallel): Install Anthropic SDK, define AI types, implement parseReceipt with TDD
 - [ ] 03-02-PLAN.md — Wave 1 (parallel): PasswordGate component with tests
 - [ ] 03-03-PLAN.md — Wave 2: ReviewScreen component with item add/remove and skipped-regions message
 - [ ] 03-04-PLAN.md — Wave 3: Wire App.tsx state machine (gate → capture → processing → review → swipe) + human verify

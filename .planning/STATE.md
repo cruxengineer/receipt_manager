@@ -9,7 +9,7 @@ progress:
   total_phases: 8
   completed_phases: 2
   total_plans: 11
-  completed_plans: 8
+  completed_plans: 9
 ---
 
 # Project State: ReceiptSplit
@@ -34,7 +34,7 @@ See: .planning/PROJECT.md (updated 2026-03-03)
 |-------|--------|-------|----------|
 | 1 | ◑ In Progress | 3/3 | 100% (deployment pending human action) |
 | 2 | ● Complete | 4/4 | 100% |
-| 3 | ◑ In Progress | 1/4 | 25% |
+| 3 | ◑ In Progress | 2/4 | 50% |
 | 4 | ○ Pending | 0/0 | 0% |
 | 5 | ○ Pending | 0/0 | 0% |
 | 6 | ○ Pending | 0/0 | 0% |
@@ -92,11 +92,14 @@ See: .planning/PROJECT.md (updated 2026-03-03)
 - [Phase 02-03]: FileInputTrigger uses synchronous inputRef.current?.click() — no async wrappers (iOS Safari gesture requirement)
 - [Phase 02-04]: App.tsx owns isProcessing + error state — Phase 3 replaces handleSubmit stub with actual AI API call without touching CaptureScreen
 - [Phase 02-04]: 1.5-second setTimeout stub in handleSubmit surfaces loading spinner during development; commented setError line enables manual error-state testing
+- [Phase 03-01]: vi.mock factory for Anthropic SDK must use regular function constructor (not arrow fn) so `new Anthropic()` works in vitest/jsdom
+- [Phase 03-01]: HEIC/HEIF media type normalized to image/jpeg for Anthropic API (API does not accept heic media type)
 - [Phase 03-02]: password inputs are not role=textbox in ARIA — test queries them via querySelector('input[type=password]') not getByRole('textbox')
 - [Phase 03-02]: PasswordGate is purely controlled via onUnlock prop — no internal sessionStorage; App.tsx (Plan 04) owns that logic
 
 ## Recent Activity
 
+- 2026-03-07: Plan 03-01 complete — @anthropic-ai/sdk installed, shared AI types defined, parseReceipt service TDD; all 9 tests GREEN (commits: 5b0f2a8, 894f9c7, dd15476)
 - 2026-03-07: Plan 03-02 complete — PasswordGate component + 6 tests GREEN; AI-01 requirement validated (commits: d2b811a, 5a293eb)
 - 2026-03-05: Plan 02-04 complete — App.tsx wired to CaptureScreen, Phase 2 done; human-verified on iPhone Safari, all 12 tests GREEN (commit: 4d67292)
 - 2026-03-06: Plan 02-03 complete — CaptureScreen + 3 sub-components (FileInputTrigger, ImagePreviewList, UploadStatus); all 12 tests GREEN (commits: 2ccf6a2, 2ee209c)
@@ -123,6 +126,7 @@ See: .planning/PROJECT.md (updated 2026-03-03)
 | 02-receipt-capture-interface | 02 | 4min | 2 | 3 |
 | 02-receipt-capture-interface | 03 | 5min | 2 | 4 |
 | 02-receipt-capture-interface | 04 | 3min | 2 | 1 |
+| 03-ai-vision-integration | 01 | 3min | 2 | 5 |
 | 03-ai-vision-integration | 02 | 5min | 1 | 2 |
 
 ---

@@ -37,9 +37,9 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Person Management
 
-- [ ] **PERS-01**: User can set names for Person A and Person B
-- [ ] **PERS-02**: Color coding consistently differentiates Person A vs Person B
-- [ ] **PERS-03**: Default names provided if user doesn't customize
+- [x] **PERS-01**: User can set names for Person A and Person B
+- [x] **PERS-02**: Color coding consistently differentiates Person A vs Person B
+- [x] **PERS-03**: Default names provided if user doesn't customize
 
 ### Summary
 
@@ -122,9 +122,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 | SWIP-07 | Phase 5 | Pending |
 | SWIP-08 | Phase 5 | Pending |
 | SWIP-09 | Phase 5 | Pending |
-| PERS-01 | Phase 4 | Pending |
-| PERS-02 | Phase 4 | Pending |
-| PERS-03 | Phase 4 | Pending |
+| PERS-01 | Phase 4 | Complete |
+| PERS-02 | Phase 4 | Complete |
+| PERS-03 | Phase 4 | Complete |
 | SUMM-01 | Phase 6 | Pending |
 | SUMM-02 | Phase 6 | Pending |
 | SUMM-03 | Phase 6 | Pending |

@@ -25,15 +25,15 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Item Assignment (Swipe UI)
 
-- [ ] **SWIP-01**: User sees one item card at a time, centered on screen
+- [x] **SWIP-01**: User sees one item card at a time, centered on screen
 - [x] **SWIP-02**: User can swipe left to assign item to Person A
 - [x] **SWIP-03**: User can swipe right to assign item to Person B
-- [ ] **SWIP-04**: User can tap center button to split item equally
+- [x] **SWIP-04**: User can tap center button to split item equally
 - [x] **SWIP-05**: Card follows finger/mouse with natural drag feel
 - [x] **SWIP-06**: Card animates off screen when swiped past threshold
-- [ ] **SWIP-07**: User can undo/go back to previous card
-- [ ] **SWIP-08**: Progress indicator shows items remaining
-- [ ] **SWIP-09**: Running totals for both people visible at bottom throughout
+- [x] **SWIP-07**: User can undo/go back to previous card
+- [x] **SWIP-08**: Progress indicator shows items remaining
+- [x] **SWIP-09**: Running totals for both people visible at bottom throughout
 
 ### Person Management
 
@@ -113,15 +113,15 @@ Which phases cover which requirements. Updated during roadmap creation.
 | AI-03 | Phase 3 | Pending |
 | AI-04 | Phase 3 | Pending |
 | AI-05 | Phase 3 | Pending |
-| SWIP-01 | Phase 5 | Pending |
+| SWIP-01 | Phase 5 | Complete |
 | SWIP-02 | Phase 5 | Complete |
 | SWIP-03 | Phase 5 | Complete |
-| SWIP-04 | Phase 5 | Pending |
+| SWIP-04 | Phase 5 | Complete |
 | SWIP-05 | Phase 5 | Complete |
 | SWIP-06 | Phase 5 | Complete |
-| SWIP-07 | Phase 5 | Pending |
-| SWIP-08 | Phase 5 | Pending |
-| SWIP-09 | Phase 5 | Pending |
+| SWIP-07 | Phase 5 | Complete |
+| SWIP-08 | Phase 5 | Complete |
+| SWIP-09 | Phase 5 | Complete |
 | PERS-01 | Phase 4 | Complete |
 | PERS-02 | Phase 4 | Complete |
 | PERS-03 | Phase 4 | Complete |

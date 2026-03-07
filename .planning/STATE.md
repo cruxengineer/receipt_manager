@@ -2,19 +2,19 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-current_plan: 05-01 complete
+current_plan: "05-02 complete — next: 05-03 (App.tsx swipe wiring)"
 status: in_progress
-last_updated: "2026-03-07T18:39:32.237Z"
+last_updated: "2026-03-07T18:45:30Z"
 progress:
   total_phases: 8
   completed_phases: 4
   total_plans: 16
-  completed_plans: 14
+  completed_plans: 15
 ---
 
 # Project State: ReceiptSplit
 
-**Last Updated:** 2026-03-07 (Plan 05-01 complete — swipe types + useSwipeGesture hook TDD, 56/56 tests GREEN)
+**Last Updated:** 2026-03-07 (Plan 05-02 complete — SwipeScreen component TDD, 13/13 tests GREEN, 69 total)
 
 ## Project Reference
 
@@ -22,7 +22,7 @@ See: .planning/PROJECT.md (updated 2026-03-03)
 
 **Core value:** Fast, frictionless receipt splitting that feels natural on mobile and produces accurate totals every time.
 
-**Current focus:** Phase 5 (Swipe Interface Core) in progress — 05-01 done (types + gesture hook). Next: 05-02 (SwipeCard component).
+**Current focus:** Phase 5 (Swipe Interface Core) in progress — 05-01 (types + gesture hook) and 05-02 (SwipeScreen component) complete. Next: 05-03 (App.tsx swipe wiring).
 
 ---
 
@@ -36,36 +36,35 @@ See: .planning/PROJECT.md (updated 2026-03-03)
 | 2 | ● Complete | 4/4 | 100% |
 | 3 | ● Complete | 4/4 | 100% |
 | 4 | ● Complete | 2/2 | 100% |
-| 5 | ◑ In Progress | 1/3 | 33% |
+| 5 | ◑ In Progress | 2/3 | 67% |
 | 6 | ○ Pending | 0/0 | 0% |
 | 7 | ○ Pending | 0/0 | 0% |
 | 8 | ○ Pending | 0/0 | 0% |
 
-**Overall:** [█████████░] 88% — 14/16 plans complete
+**Overall:** [█████████░] 94% — 15/16 plans complete
 
 ---
 
 ## Current Phase
 
-**Phase 5: Swipe Interface Core** — In progress. 05-01 (swipe types + useSwipeGesture hook) complete.
+**Phase 5: Swipe Interface Core** — In progress. 05-01 (swipe types + useSwipeGesture hook) and 05-02 (SwipeScreen component) complete.
 
-**Current Plan:** 05-01 complete — next: 05-02 (SwipeCard component)
+**Current Plan:** 05-02 complete — next: 05-03 (App.tsx swipe wiring)
 
 ---
 
 ## Next Actions
 
-1. Execute 05-02 — SwipeCard component (drag visual feedback: tilt, tint, name label)
-2. Execute 05-03 — SwipeScreen (full screen with totals bar, progress, split button, undo, restart)
-3. (Deferred from Phase 1) Configure Vercel account + add VERCEL_TOKEN, VERCEL_ORG_ID, VERCEL_PROJECT_ID secrets to GitHub repo
+1. Execute 05-03 — App.tsx wiring (replace 'swipe' placeholder with SwipeScreen, handle onComplete and restart)
+2. (Deferred from Phase 1) Configure Vercel account + add VERCEL_TOKEN, VERCEL_ORG_ID, VERCEL_PROJECT_ID secrets to GitHub repo
 
 ---
 
 ## Requirements Status
 
 **v1 Requirements:** 32 total
-- ✓ Validated: 16 (DEPL-01 confirmed by 01-02; DEPL-01..DEPL-03 addressed by 01-03; CAPT-01..CAPT-05 verified in Phase 2 — live deployment pending; PERS-01..PERS-03 delivered by 04-01; SWIP-02, SWIP-03, SWIP-05, SWIP-06 delivered by 05-01)
-- ○ Pending: 16
+- ✓ Validated: 21 (DEPL-01 confirmed by 01-02; DEPL-01..DEPL-03 addressed by 01-03; CAPT-01..CAPT-05 verified in Phase 2 — live deployment pending; PERS-01..PERS-03 delivered by 04-01; SWIP-02, SWIP-03, SWIP-05, SWIP-06 delivered by 05-01; SWIP-01, SWIP-04, SWIP-07, SWIP-08, SWIP-09 delivered by 05-02)
+- ○ Pending: 11
 - ✗ Blocked: 0
 
 ---
@@ -107,9 +106,13 @@ See: .planning/PROJECT.md (updated 2026-03-03)
 - [Phase 05-01]: dragXRef mirrors dragX state so onPointerUp can read committed status without stale closure — avoids functional setState complexity
 - [Phase 05-01]: setPointerCapture guarded by try/catch — jsdom does not implement it, but mobile requires it for smooth off-element tracking
 - [Phase 05-01]: On committed pointerUp, dragX is left intact — SwipeScreen calls reset() explicitly after fly-off animation (~300ms)
+- [Phase 05-02]: handleAssign wrapped in useCallback with full deps array — prevents stale closure in gesture useEffect
+- [Phase 05-02]: setAllDone(true) fires synchronously, onComplete fires via setTimeout(1500ms) — user sees All done! before App.tsx can unmount component
+- [Phase 05-02]: Three-dots Start over calls onComplete([]) — App.tsx interprets empty array as restart signal
 
 ## Recent Activity
 
+- 2026-03-07: Plan 05-02 complete — SwipeScreen component TDD; SWIP-01/04/07/08/09 delivered; 13/13 tests GREEN, 69 total (commits: eb2f44e, 4950730)
 - 2026-03-07: Plan 05-01 complete — swipe types (ItemAssignment, SwipeAssignments) + useSwipeGesture hook TDD; SWIP-02/03/05/06 delivered; 56/56 tests GREEN (commits: 16c1960, f78a4dd, 3560f98)
 - 2026-03-07: Plan 04-02 complete — NamesModal wired into App.tsx; human-verified all 9 steps on device; Phase 4 complete (commit: 5a3557b)
 - 2026-03-07: Plan 04-01 complete — NamesModal TDD; PERS-01..PERS-03 delivered; 48/48 tests GREEN (commits: 5199dc5, 47983d3)
@@ -149,9 +152,10 @@ See: .planning/PROJECT.md (updated 2026-03-03)
 | 04-person-management | 01 | 4min | 2 | 2 |
 | 04-person-management | 02 | 15min | 2 | 1 |
 | 05-swipe-interface-core | 01 | 2min | 3 | 3 |
+| 05-swipe-interface-core | 02 | 2min | 2 | 2 |
 
 ---
 
 *State tracking initialized 2026-03-03*
-*Last session: 2026-03-07 — Stopped at: Completed 05-swipe-interface-core/05-01-PLAN.md*
+*Last session: 2026-03-07 — Stopped at: Completed 05-swipe-interface-core/05-02-PLAN.md*
 

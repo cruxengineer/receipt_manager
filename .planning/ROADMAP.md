@@ -114,7 +114,7 @@ Plans:
 **Requirements:**
 - SWIP-01, SWIP-02, SWIP-03, SWIP-04, SWIP-05, SWIP-06, SWIP-07, SWIP-08, SWIP-09
 
-**Plans:** 1/3 plans executed
+**Plans:** 2/3 plans executed
 
 Plans:
 - [ ] 05-01-PLAN.md — Wave 1 (TDD): ItemAssignment types + useSwipeGesture hook (drag tracking, threshold commit, snap-back)
@@ -207,7 +207,7 @@ Plans:
 | 2 | 4/4 | Complete    | 2026-03-06 |
 | 3 | 1/4 | In Progress|  |
 | 4 | 2/2 | Complete    | 2026-03-07 |
-| 5 | 1/3 | In Progress|  |
+| 5 | 2/3 | In Progress|  |
 | 6 | 7 | Medium | Phase 5 |
 | 7 | 4 | Medium | Phase 5, 6 |
 | 8 | 0 (validation) | Medium | All phases |

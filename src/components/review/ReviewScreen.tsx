@@ -18,7 +18,7 @@ export function ReviewScreen({
   skippedRegions,
   sourceFiles,
   onConfirm,
-}: ReviewScreenProps): JSX.Element {
+}: ReviewScreenProps) {
   const [editedItems, setEditedItems] = useState<ReceiptItem[]>(() => [...items])
   const [newName, setNewName] = useState('')
   const [newPrice, setNewPrice] = useState('')

@@ -7,7 +7,7 @@ interface PasswordGateProps {
   onUnlock: () => void
 }
 
-export function PasswordGate({ onUnlock }: PasswordGateProps): JSX.Element {
+export function PasswordGate({ onUnlock }: PasswordGateProps) {
   const [value, setValue] = useState('')
   const [error, setError] = useState<string | null>(null)
 

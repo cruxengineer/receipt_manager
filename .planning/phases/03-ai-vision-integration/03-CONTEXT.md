@@ -44,7 +44,9 @@ AI processing accuracy, prompt engineering, and error handling are in scope. The
 ### Ambiguous item handling
 - Skip items the AI cannot confidently read (blurry, unreadable price, etc.)
 - Show a count of skipped items after extraction: e.g., "2 items couldn't be read — add them manually below"
+- For each skipped item, display a cropped image of that region of the receipt so the user can see exactly what was missed and type it in manually
 - Never hallucinate a price — if uncertain, skip the item entirely
+- AI response must include bounding box or region hint for skipped items so the crop can be rendered
 
 ### Review screen (after AI extraction)
 - Shown after AI call completes, before navigating to swipe flow
@@ -89,7 +91,7 @@ AI processing accuracy, prompt engineering, and error handling are in scope. The
 ### Integration Points
 - `App.tsx:handleSubmit(files: File[])` — replace the 1.5s setTimeout stub with real AI call
 - App.tsx will need a new state machine: `'gate' | 'capture' | 'processing' | 'review' | 'swipe'`
-- ReviewScreen receives `items: { name: string, price: number }[]` and `skippedCount: number`
+- ReviewScreen receives `items: { name: string, price: number }[]` and `skippedRegions: { imageIndex: number, boundingBox: { x: number, y: number, width: number, height: number } }[]`
 - ReviewScreen emits final `items` to App.tsx → passed to Phase 5 SwipeScreen
 
 ### New Env Vars Needed

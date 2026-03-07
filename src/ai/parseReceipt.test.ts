@@ -5,15 +5,22 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import type { ParseReceiptResult, ReceiptItem } from '@/types/ai'
 
-// Mock the Anthropic SDK before importing parseReceipt
+// Shared mock create function — referenced by all real-API tests.
+// Declared at module scope so the vi.mock factory closure can reference it.
+const mockCreate = vi.fn()
+
+// Track constructor call count for Test 3 (no-SDK-call assertion)
+let anthropicConstructorCallCount = 0
+
+// Mock the Anthropic SDK before importing parseReceipt.
+// Must use a regular function (not arrow) so `new Anthropic()` works as a constructor.
 vi.mock('@anthropic-ai/sdk', () => {
-  const mockCreate = vi.fn()
-  const MockAnthropic = vi.fn().mockImplementation(() => ({
-    messages: { create: mockCreate },
-  }))
-  // Attach mockCreate so tests can reference it via the constructor mock
-  ;(MockAnthropic as unknown as Record<string, unknown>)._mockCreate = mockCreate
-  return { default: MockAnthropic }
+  return {
+    default: function MockAnthropic() {
+      anthropicConstructorCallCount++
+      return { messages: { create: mockCreate } }
+    },
+  }
 })
 
 // Helper: Create a minimal File object
@@ -31,6 +38,8 @@ function makeAnthropicResponse(json: object): object {
 describe('parseReceipt', () => {
   beforeEach(() => {
     vi.clearAllMocks()
+    vi.unstubAllEnvs()
+    anthropicConstructorCallCount = 0
   })
 
   // ──────────────────────────────────────────────
@@ -63,14 +72,10 @@ describe('parseReceipt', () => {
 
   it('Test 3 (mock no API call): Anthropic SDK is never instantiated in mock mode', async () => {
     vi.stubEnv('VITE_MOCK_MODE', 'true')
-    const AnthropicModule = await import('@anthropic-ai/sdk')
-    const MockAnthropic = AnthropicModule.default as ReturnType<typeof vi.fn>
-    MockAnthropic.mockClear()
-
     const { parseReceipt } = await import('./parseReceipt')
     await parseReceipt([makeFile()])
 
-    expect(MockAnthropic).not.toHaveBeenCalled()
+    expect(anthropicConstructorCallCount).toBe(0)
   })
 
   // ──────────────────────────────────────────────
@@ -79,9 +84,6 @@ describe('parseReceipt', () => {
 
   it('Test 4 (real API success): calls Anthropic with claude-3-5-sonnet-20241022 and image blocks', async () => {
     vi.stubEnv('VITE_MOCK_MODE', '')
-    const AnthropicModule = await import('@anthropic-ai/sdk')
-    const MockAnthropic = AnthropicModule.default as ReturnType<typeof vi.fn>
-    const mockCreate = (MockAnthropic as unknown as Record<string, unknown>)._mockCreate as ReturnType<typeof vi.fn>
     mockCreate.mockResolvedValueOnce(
       makeAnthropicResponse({ items: [{ name: 'Pizza', price: 12.0 }], skippedRegions: [] })
     )
@@ -89,7 +91,7 @@ describe('parseReceipt', () => {
     const { parseReceipt } = await import('./parseReceipt')
     const result = await parseReceipt([makeFile()])
 
-    expect(MockAnthropic).toHaveBeenCalled()
+    expect(anthropicConstructorCallCount).toBeGreaterThan(0)
     expect(mockCreate).toHaveBeenCalledWith(
       expect.objectContaining({
         model: 'claude-3-5-sonnet-20241022',
@@ -108,9 +110,6 @@ describe('parseReceipt', () => {
 
   it('Test 5 (real API response parsing): returns correct name and price from stubbed response', async () => {
     vi.stubEnv('VITE_MOCK_MODE', '')
-    const AnthropicModule = await import('@anthropic-ai/sdk')
-    const MockAnthropic = AnthropicModule.default as ReturnType<typeof vi.fn>
-    const mockCreate = (MockAnthropic as unknown as Record<string, unknown>)._mockCreate as ReturnType<typeof vi.fn>
     mockCreate.mockResolvedValueOnce(
       makeAnthropicResponse({
         items: [
@@ -132,9 +131,6 @@ describe('parseReceipt', () => {
 
   it('Test 6 (subtotal/total excluded): filters Subtotal and Total from returned items', async () => {
     vi.stubEnv('VITE_MOCK_MODE', '')
-    const AnthropicModule = await import('@anthropic-ai/sdk')
-    const MockAnthropic = AnthropicModule.default as ReturnType<typeof vi.fn>
-    const mockCreate = (MockAnthropic as unknown as Record<string, unknown>)._mockCreate as ReturnType<typeof vi.fn>
     mockCreate.mockResolvedValueOnce(
       makeAnthropicResponse({
         items: [
@@ -158,9 +154,6 @@ describe('parseReceipt', () => {
 
   it('Test 7 (skipped regions): returns skippedRegions from AI response', async () => {
     vi.stubEnv('VITE_MOCK_MODE', '')
-    const AnthropicModule = await import('@anthropic-ai/sdk')
-    const MockAnthropic = AnthropicModule.default as ReturnType<typeof vi.fn>
-    const mockCreate = (MockAnthropic as unknown as Record<string, unknown>)._mockCreate as ReturnType<typeof vi.fn>
     const skipped = [{ imageIndex: 0, boundingBox: { x: 0.1, y: 0.4, width: 0.8, height: 0.05 } }]
     mockCreate.mockResolvedValueOnce(
       makeAnthropicResponse({ items: [], skippedRegions: skipped })
@@ -174,9 +167,6 @@ describe('parseReceipt', () => {
 
   it('Test 8 (API error): throws Error with user-readable message when SDK throws', async () => {
     vi.stubEnv('VITE_MOCK_MODE', '')
-    const AnthropicModule = await import('@anthropic-ai/sdk')
-    const MockAnthropic = AnthropicModule.default as ReturnType<typeof vi.fn>
-    const mockCreate = (MockAnthropic as unknown as Record<string, unknown>)._mockCreate as ReturnType<typeof vi.fn>
     mockCreate.mockRejectedValueOnce(new Error('Network failure'))
 
     const { parseReceipt } = await import('./parseReceipt')
@@ -188,9 +178,6 @@ describe('parseReceipt', () => {
 
   it('Test 9 (invalid JSON in response): throws Error with user-readable message when AI returns non-JSON', async () => {
     vi.stubEnv('VITE_MOCK_MODE', '')
-    const AnthropicModule = await import('@anthropic-ai/sdk')
-    const MockAnthropic = AnthropicModule.default as ReturnType<typeof vi.fn>
-    const mockCreate = (MockAnthropic as unknown as Record<string, unknown>)._mockCreate as ReturnType<typeof vi.fn>
     mockCreate.mockResolvedValueOnce({
       content: [{ type: 'text', text: 'Sorry, I cannot read that receipt.' }],
     })

@@ -169,7 +169,7 @@ Plans:
 **Requirements:**
 - UX-01, UX-02, UX-03, UX-04
 
-**Plans:** 2/4 plans executed
+**Plans:** 3/4 plans executed
 
 Plans:
 - [ ] 07-01-PLAN.md — Wave 1: Global iOS safari polish — viewport-fit=cover, tap highlight removal, safe area insets, h-dvh layout for CaptureScreen and SummaryScreen
@@ -219,7 +219,7 @@ Plans:
 | 4 | 2/2 | Complete    | 2026-03-07 |
 | 5 | 2/3 | Complete    | 2026-03-08 |
 | 6 | 1/2 | In Progress|  |
-| 7 | 2/4 | In Progress|  |
+| 7 | 3/4 | In Progress|  |
 | 8 | 0 (validation) | Medium | All phases |
 
 **Total:** 8 phases covering 32 v1 requirements

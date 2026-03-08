@@ -3,10 +3,12 @@ import CaptureScreen from '@/components/capture/CaptureScreen'
 import { PasswordGate } from '@/components/gate/PasswordGate'
 import { ReviewScreen } from '@/components/review/ReviewScreen'
 import { NamesModal } from '@/components/names/NamesModal'
+import { SwipeScreen } from '@/components/swipe/SwipeScreen'
 import { parseReceipt } from '@/ai/parseReceipt'
 import type { ReceiptItem, SkippedRegion } from '@/types/ai'
+import type { SwipeAssignments } from '@/types/swipe'
 
-type AppState = 'gate' | 'names' | 'capture' | 'processing' | 'review' | 'swipe'
+type AppState = 'gate' | 'names' | 'capture' | 'processing' | 'review' | 'swipe' | 'summary'
 
 const SESSION_KEY = 'receipt-split-unlocked'
 
@@ -21,10 +23,11 @@ function App() {
   const [skippedRegions, setSkippedRegions] = useState<SkippedRegion[]>([])
   // sourceFiles held in state so ReviewScreen can render canvas crops for skipped regions
   const [sourceFiles, setSourceFiles] = useState<File[]>([])
-  // Phase 5 placeholder: final confirmed items from ReviewScreen
+  // Confirmed items from ReviewScreen, passed into SwipeScreen
   const [confirmedItems, setConfirmedItems] = useState<ReceiptItem[]>([])
   const [personAName, setPersonAName] = useState('Tom')
   const [personBName, setPersonBName] = useState('Jerry')
+  const [assignments, setAssignments] = useState<SwipeAssignments>([])
 
   const handleUnlock = () => {
     sessionStorage.setItem(SESSION_KEY, 'true')
@@ -73,8 +76,11 @@ function App() {
   const handleConfirm = (items: ReceiptItem[]) => {
     setConfirmedItems(items)
     setAppState('swipe')
-    // Phase 5 will render SwipeScreen here
-    console.log('Phase 5 placeholder — confirmed items ready:', items)
+  }
+
+  const handleSwipeComplete = (result: SwipeAssignments) => {
+    setAssignments(result)
+    setAppState('summary')
   }
 
   if (appState === 'gate') {
@@ -105,13 +111,22 @@ function App() {
   }
 
   if (appState === 'swipe') {
-    // Phase 5 placeholder — SwipeScreen not yet implemented
+    return (
+      <SwipeScreen
+        items={confirmedItems}
+        personAName={personAName}
+        personBName={personBName}
+        onComplete={handleSwipeComplete}
+      />
+    )
+  }
+
+  if (appState === 'summary') {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="max-w-md mx-auto text-center p-6">
-          <p className="text-gray-500">Phase 5: Swipe flow coming soon</p>
-          <p className="text-xs text-gray-400 mt-2">{confirmedItems.length} items ready</p>
-          <p className="text-xs text-gray-400 mt-1">{personAName} vs {personBName}</p>
+          <p className="text-gray-500">Phase 6: Summary coming soon</p>
+          <p className="text-xs text-gray-400 mt-2">{assignments.length} items assigned</p>
         </div>
       </div>
     )

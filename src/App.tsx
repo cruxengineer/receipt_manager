@@ -4,6 +4,7 @@ import { PasswordGate } from '@/components/gate/PasswordGate'
 import { ReviewScreen } from '@/components/review/ReviewScreen'
 import { NamesModal } from '@/components/names/NamesModal'
 import { SwipeScreen } from '@/components/swipe/SwipeScreen'
+import { SummaryScreen } from '@/components/summary/SummaryScreen'
 import { parseReceipt } from '@/ai/parseReceipt'
 import type { ReceiptItem, SkippedRegion } from '@/types/ai'
 import type { SwipeAssignments } from '@/types/swipe'
@@ -28,6 +29,8 @@ function App() {
   const [personAName, setPersonAName] = useState('Tom')
   const [personBName, setPersonBName] = useState('Jerry')
   const [assignments, setAssignments] = useState<SwipeAssignments>([])
+  const [swipeKey, setSwipeKey] = useState(0)
+  const [returnAfterNames, setReturnAfterNames] = useState<AppState>('capture')
 
   const handleUnlock = () => {
     sessionStorage.setItem(SESSION_KEY, 'true')
@@ -37,7 +40,31 @@ function App() {
   const handleNamesConfirm = (nameA: string, nameB: string) => {
     setPersonAName(nameA.trim() || 'Tom')
     setPersonBName(nameB.trim() || 'Jerry')
+    setAppState(returnAfterNames)
+    setReturnAfterNames('capture')   // reset to default for next time
+  }
+
+  const handleAdjust = () => {
+    setAssignments([])
+    setSwipeKey(k => k + 1)   // remounts SwipeScreen, resets its internal currentIndex
+    setAppState('swipe')
+  }
+
+  const handleStartOver = () => {
+    setAssignments([])
+    setConfirmedItems([])
+    setReviewItems([])
+    setSkippedRegions([])
+    setSourceFiles([])
+    setPersonAName('Tom')
+    setPersonBName('Jerry')
+    setSwipeKey(k => k + 1)
     setAppState('capture')
+  }
+
+  const handleEditNamesFromSummary = () => {
+    setReturnAfterNames('summary')
+    setAppState('names')
   }
 
   const handleSubmit = async (files: File[]) => {
@@ -113,6 +140,7 @@ function App() {
   if (appState === 'swipe') {
     return (
       <SwipeScreen
+        key={swipeKey}
         items={confirmedItems}
         personAName={personAName}
         personBName={personBName}
@@ -123,12 +151,14 @@ function App() {
 
   if (appState === 'summary') {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="max-w-md mx-auto text-center p-6">
-          <p className="text-gray-500">Phase 6: Summary coming soon</p>
-          <p className="text-xs text-gray-400 mt-2">{assignments.length} items assigned</p>
-        </div>
-      </div>
+      <SummaryScreen
+        assignments={assignments}
+        personAName={personAName}
+        personBName={personBName}
+        onAdjust={handleAdjust}
+        onStartOver={handleStartOver}
+        onEditNames={handleEditNamesFromSummary}
+      />
     )
   }
 

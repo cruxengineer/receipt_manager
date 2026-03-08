@@ -143,7 +143,7 @@ Plans:
 **Requirements:**
 - SUMM-01, SUMM-02, SUMM-03, SUMM-04, SUMM-05, SUMM-06, SUMM-07
 
-**Plans:** 2 plans
+**Plans:** 1/2 plans executed
 
 Plans:
 - [ ] 06-01-PLAN.md — Wave 1 (TDD): SummaryScreen component — itemized lists, split tags, totals bar, name-edit affordance
@@ -212,7 +212,7 @@ Plans:
 | 3 | 1/4 | In Progress|  |
 | 4 | 2/2 | Complete    | 2026-03-07 |
 | 5 | 2/3 | Complete    | 2026-03-08 |
-| 6 | 7 | Medium | Phase 5 |
+| 6 | 1/2 | In Progress|  |
 | 7 | 4 | Medium | Phase 5, 6 |
 | 8 | 0 (validation) | Medium | All phases |
 

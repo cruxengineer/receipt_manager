@@ -4,17 +4,17 @@ milestone: v1.0
 milestone_name: milestone
 current_plan: Not started
 status: unknown
-last_updated: "2026-03-08T01:08:12.269Z"
+last_updated: "2026-03-08T01:31:35.013Z"
 progress:
   total_phases: 8
   completed_phases: 5
-  total_plans: 16
-  completed_plans: 16
+  total_plans: 18
+  completed_plans: 17
 ---
 
 # Project State: ReceiptSplit
 
-**Last Updated:** 2026-03-07 (Plan 05-02 complete — SwipeScreen component TDD, 13/13 tests GREEN, 69 total)
+**Last Updated:** 2026-03-07 (Plan 06-01 complete — SummaryScreen TDD, 16/16 new tests GREEN, 85 total)
 
 ## Project Reference
 
@@ -22,7 +22,7 @@ See: .planning/PROJECT.md (updated 2026-03-03)
 
 **Core value:** Fast, frictionless receipt splitting that feels natural on mobile and produces accurate totals every time.
 
-**Current focus:** Phase 5 (Swipe Interface Core) in progress — 05-01 (types + gesture hook) and 05-02 (SwipeScreen component) complete. Next: 05-03 (App.tsx swipe wiring).
+**Current focus:** Phase 6 (Summary Screen) in progress — 06-01 (SummaryScreen component TDD) complete. Next: 06-02 (App.tsx wiring).
 
 ---
 
@@ -37,25 +37,25 @@ See: .planning/PROJECT.md (updated 2026-03-03)
 | 3 | ● Complete | 4/4 | 100% |
 | 4 | ● Complete | 2/2 | 100% |
 | 5 | ◑ In Progress | 2/3 | 67% |
-| 6 | ○ Pending | 0/0 | 0% |
+| 6 | ◑ In Progress | 1/2 | 50% |
 | 7 | ○ Pending | 0/0 | 0% |
 | 8 | ○ Pending | 0/0 | 0% |
 
-**Overall:** [█████████░] 94% — 15/16 plans complete
+**Overall:** [█████████░] 94% — 17/18 plans complete
 
 ---
 
 ## Current Phase
 
-**Phase 5: Swipe Interface Core** — In progress. 05-01 (swipe types + useSwipeGesture hook) and 05-02 (SwipeScreen component) complete.
+**Phase 6: Summary Screen** — In progress. 06-01 (SummaryScreen component TDD) complete.
 
-**Current Plan:** Not started
+**Current Plan:** 06-02 (App.tsx wiring for SummaryScreen)
 
 ---
 
 ## Next Actions
 
-1. Execute 05-03 — App.tsx wiring (replace 'swipe' placeholder with SwipeScreen, handle onComplete and restart)
+1. Execute 06-02 — App.tsx wiring (add 'summary' state, import SummaryScreen, pass assignments/names/callbacks, handle Adjust/StartOver/EditNames)
 2. (Deferred from Phase 1) Configure Vercel account + add VERCEL_TOKEN, VERCEL_ORG_ID, VERCEL_PROJECT_ID secrets to GitHub repo
 
 ---
@@ -63,8 +63,8 @@ See: .planning/PROJECT.md (updated 2026-03-03)
 ## Requirements Status
 
 **v1 Requirements:** 32 total
-- ✓ Validated: 21 (DEPL-01 confirmed by 01-02; DEPL-01..DEPL-03 addressed by 01-03; CAPT-01..CAPT-05 verified in Phase 2 — live deployment pending; PERS-01..PERS-03 delivered by 04-01; SWIP-02, SWIP-03, SWIP-05, SWIP-06 delivered by 05-01; SWIP-01, SWIP-04, SWIP-07, SWIP-08, SWIP-09 delivered by 05-02)
-- ○ Pending: 11
+- ✓ Validated: 26 (DEPL-01 confirmed by 01-02; DEPL-01..DEPL-03 addressed by 01-03; CAPT-01..CAPT-05 verified in Phase 2 — live deployment pending; PERS-01..PERS-03 delivered by 04-01; SWIP-02, SWIP-03, SWIP-05, SWIP-06 delivered by 05-01; SWIP-01, SWIP-04, SWIP-07, SWIP-08, SWIP-09 delivered by 05-02; SUMM-01..SUMM-05 delivered by 06-01)
+- ○ Pending: 6
 - ✗ Blocked: 0
 
 ---
@@ -109,9 +109,12 @@ See: .planning/PROJECT.md (updated 2026-03-03)
 - [Phase 05-02]: handleAssign wrapped in useCallback with full deps array — prevents stale closure in gesture useEffect
 - [Phase 05-02]: setAllDone(true) fires synchronously, onComplete fires via setTimeout(1500ms) — user sees All done! before App.tsx can unmount component
 - [Phase 05-02]: Three-dots Start over calls onComplete([]) — App.tsx interprets empty array as restart signal
+- [Phase 06-01]: Test assertions use getAllByText/length-check pattern for names appearing in both totals bar and section headers
+- [Phase 06-01]: Empty-assignments zero-check uses toBeGreaterThanOrEqual(2) because receipt total line also renders $0.00
 
 ## Recent Activity
 
+- 2026-03-07: Plan 06-01 complete — SummaryScreen TDD; SUMM-01..05 delivered; 16/16 new tests GREEN, 85 total (commits: def47e1, 53b10a0)
 - 2026-03-07: Plan 05-02 complete — SwipeScreen component TDD; SWIP-01/04/07/08/09 delivered; 13/13 tests GREEN, 69 total (commits: eb2f44e, 4950730)
 - 2026-03-07: Plan 05-01 complete — swipe types (ItemAssignment, SwipeAssignments) + useSwipeGesture hook TDD; SWIP-02/03/05/06 delivered; 56/56 tests GREEN (commits: 16c1960, f78a4dd, 3560f98)
 - 2026-03-07: Plan 04-02 complete — NamesModal wired into App.tsx; human-verified all 9 steps on device; Phase 4 complete (commit: 5a3557b)
@@ -153,9 +156,10 @@ See: .planning/PROJECT.md (updated 2026-03-03)
 | 04-person-management | 02 | 15min | 2 | 1 |
 | 05-swipe-interface-core | 01 | 2min | 3 | 3 |
 | 05-swipe-interface-core | 02 | 2min | 2 | 2 |
+| 06-summary-screen | 01 | 5min | 2 | 2 |
 
 ---
 
 *State tracking initialized 2026-03-03*
-*Last session: 2026-03-07 — Stopped at: Completed 05-swipe-interface-core/05-02-PLAN.md*
+*Last session: 2026-03-07 — Stopped at: Completed 06-summary-screen/06-01-PLAN.md*
 

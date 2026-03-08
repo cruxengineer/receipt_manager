@@ -43,11 +43,11 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Summary
 
-- [ ] **SUMM-01**: Summary screen shows Person A's itemized list with prices
-- [ ] **SUMM-02**: Summary screen shows Person B's itemized list with prices
-- [ ] **SUMM-03**: Summary screen shows split items clearly
-- [ ] **SUMM-04**: Summary screen shows each person's total amount owed
-- [ ] **SUMM-05**: Summary math is always correct (assigned + split = receipt total)
+- [x] **SUMM-01**: Summary screen shows Person A's itemized list with prices
+- [x] **SUMM-02**: Summary screen shows Person B's itemized list with prices
+- [x] **SUMM-03**: Summary screen shows split items clearly
+- [x] **SUMM-04**: Summary screen shows each person's total amount owed
+- [x] **SUMM-05**: Summary math is always correct (assigned + split = receipt total)
 - [ ] **SUMM-06**: User can go back and adjust assignments from summary
 - [ ] **SUMM-07**: User can start over with new receipt from summary
 
@@ -125,11 +125,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 | PERS-01 | Phase 4 | Complete |
 | PERS-02 | Phase 4 | Complete |
 | PERS-03 | Phase 4 | Complete |
-| SUMM-01 | Phase 6 | Pending |
-| SUMM-02 | Phase 6 | Pending |
-| SUMM-03 | Phase 6 | Pending |
-| SUMM-04 | Phase 6 | Pending |
-| SUMM-05 | Phase 6 | Pending |
+| SUMM-01 | Phase 6 | Complete |
+| SUMM-02 | Phase 6 | Complete |
+| SUMM-03 | Phase 6 | Complete |
+| SUMM-04 | Phase 6 | Complete |
+| SUMM-05 | Phase 6 | Complete |
 | SUMM-06 | Phase 6 | Pending |
 | SUMM-07 | Phase 6 | Pending |
 | UX-01 | Phase 7 | Pending |

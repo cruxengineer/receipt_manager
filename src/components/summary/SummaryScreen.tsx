@@ -39,18 +39,18 @@ export function SummaryScreen({
   const receiptTotal = totalA + totalB
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
+    <div className="h-dvh bg-gray-50 flex flex-col overflow-hidden">
       <div className="max-w-md mx-auto w-full flex flex-col flex-1">
 
         {/* Totals bar — matches SwipeScreen pattern */}
-        <div className="flex justify-around px-6 py-2.5 bg-white border-b border-gray-100 flex-shrink-0">
+        <div className="flex justify-around px-6 py-2.5 bg-white border-b border-gray-100 flex-shrink-0 pt-safe">
           <div className="text-center" style={{ color: 'var(--color-person-a)' }}>
             <div className="flex items-center justify-center gap-1">
               <span className="text-xs font-semibold tracking-wide">{personAName}</span>
               <button
                 onClick={onEditNames}
                 aria-label="edit names"
-                className="opacity-50 hover:opacity-100 transition-opacity"
+                className="opacity-50 hover:opacity-100 transition-opacity min-w-[44px] min-h-[44px] flex items-center justify-center"
               >
                 <Pencil className="w-3 h-3" />
               </button>
@@ -64,7 +64,7 @@ export function SummaryScreen({
               <button
                 onClick={onEditNames}
                 aria-label="edit names"
-                className="opacity-50 hover:opacity-100 transition-opacity"
+                className="opacity-50 hover:opacity-100 transition-opacity min-w-[44px] min-h-[44px] flex items-center justify-center"
               >
                 <Pencil className="w-3 h-3" />
               </button>
@@ -134,7 +134,7 @@ export function SummaryScreen({
         </div>
 
         {/* Bottom action row */}
-        <div className="flex gap-3 px-4 pb-6 pt-3 bg-gray-50 flex-shrink-0">
+        <div className="flex gap-3 px-4 pt-3 bg-gray-50 flex-shrink-0 pb-safe-6">
           <Button
             className="flex-1 h-11"
             onClick={onAdjust}

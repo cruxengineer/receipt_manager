@@ -143,7 +143,11 @@ Plans:
 **Requirements:**
 - SUMM-01, SUMM-02, SUMM-03, SUMM-04, SUMM-05, SUMM-06, SUMM-07
 
-**Plans:** [To be planned]
+**Plans:** 2 plans
+
+Plans:
+- [ ] 06-01-PLAN.md — Wave 1 (TDD): SummaryScreen component — itemized lists, split tags, totals bar, name-edit affordance
+- [ ] 06-02-PLAN.md — Wave 2: Wire SummaryScreen into App.tsx — Adjust, Start Over, edit names from summary + human verify
 
 **Success Criteria:**
 1. Person A's items listed with individual prices
@@ -221,4 +225,4 @@ Plans:
 ---
 
 *Roadmap created: 2026-03-03*
-*Last updated: 2026-03-07 after Phase 5 planning (3 plans created)*
+*Last updated: 2026-03-07 after Phase 6 planning (2 plans created)*

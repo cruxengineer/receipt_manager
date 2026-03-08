@@ -17,6 +17,40 @@
     --person-b-light: 142 71% 95%; /* Light green background */
     --person-b-dark: 142 71% 35%; /* Darker green for contrast */
   }
+
+  /* iOS Safari: remove blue/grey tap highlight flash on all tappable elements */
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Prevent double-tap zoom on interactive elements and price numbers */
+  button,
+  [role="button"],
+  input,
+  .touch-none {
+    touch-action: manipulation;
+  }
+
+  /* Prevent rubber-band overscroll on full-screen locked views */
+  html,
+  body {
+    overscroll-behavior: none;
+  }
+}
+
+@layer utilities {
+  .pt-safe {
+    padding-top: env(safe-area-inset-top);
+  }
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .pt-safe-4 {
+    padding-top: max(env(safe-area-inset-top), 1rem);
+  }
+  .pb-safe-6 {
+    padding-bottom: max(env(safe-area-inset-bottom), 1.5rem);
+  }
 }
 
 @theme {

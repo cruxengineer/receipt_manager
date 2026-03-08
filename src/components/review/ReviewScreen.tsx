@@ -17,6 +17,8 @@ interface ReviewScreenProps {
   onBack?: () => void
   /** Called when user wants to scan an additional receipt and append its items. */
   onAddAnother?: () => void
+  /** Item counts per receipt, used to render subtle dividers between receipt groups. */
+  receiptGroupSizes?: number[]
 }
 
 export function ReviewScreen({
@@ -27,7 +29,17 @@ export function ReviewScreen({
   onConfirm,
   onBack,
   onAddAnother,
+  receiptGroupSizes,
 }: ReviewScreenProps) {
+  // Map from item index → receipt number for divider labels (only entries for receipt 2+).
+  const dividerAtIndex = new Map<number, number>()
+  if (receiptGroupSizes && receiptGroupSizes.length > 1) {
+    let cursor = 0
+    for (let i = 0; i < receiptGroupSizes.length - 1; i++) {
+      cursor += receiptGroupSizes[i]
+      dividerAtIndex.set(cursor, i + 2) // receipt number starts at 2
+    }
+  }
   const [editedItems, setEditedItems] = useState<ReceiptItem[]>(() => [...items])
   const [newName, setNewName] = useState('')
   const [newPrice, setNewPrice] = useState('')
@@ -105,22 +117,31 @@ export function ReviewScreen({
           {editedItems.length > 0 && (
             <ul className="divide-y divide-gray-100">
               {editedItems.map((item, index) => (
-                <li key={index} className="flex items-center gap-2 py-2">
-                  <span className="flex-1 text-sm text-gray-900">{item.name}</span>
-                  <span className="text-sm font-medium text-gray-700">
-                    ${item.price.toFixed(2)}
-                  </span>
-                  <button
-                    type="button"
-                    onClick={() => handleRemove(index)}
-                    aria-label={`Remove ${item.name}`}
-                    className={cn(
-                      'text-gray-400 hover:text-red-500 transition-colors',
-                      'h-7 w-7 flex items-center justify-center rounded text-base leading-none'
-                    )}
-                  >
-                    &times;
-                  </button>
+                <li key={index}>
+                  {dividerAtIndex.has(index) && (
+                    <div className="flex items-center gap-2 py-1 -mx-1">
+                      <div className="flex-1 h-px bg-gray-200" />
+                      <span className="text-xs text-gray-400 shrink-0">Receipt {dividerAtIndex.get(index)}</span>
+                      <div className="flex-1 h-px bg-gray-200" />
+                    </div>
+                  )}
+                  <div className="flex items-center gap-2 py-2">
+                    <span className="flex-1 text-sm text-gray-900">{item.name}</span>
+                    <span className="text-sm font-medium text-gray-700">
+                      ${item.price.toFixed(2)}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => handleRemove(index)}
+                      aria-label={`Remove ${item.name}`}
+                      className={cn(
+                        'text-gray-400 hover:text-red-500 transition-colors',
+                        'h-7 w-7 flex items-center justify-center rounded text-base leading-none'
+                      )}
+                    >
+                      &times;
+                    </button>
+                  </div>
                 </li>
               ))}
             </ul>

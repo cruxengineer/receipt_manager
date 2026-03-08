@@ -84,8 +84,8 @@ export default function CaptureScreen({
             onRetry={handleRetry}
           />
 
-          {/* Add photos button — hidden while processing or showing error */}
-          {!isProcessing && !error && (
+          {/* Add photo button — hidden once a file is selected, while processing, or on error */}
+          {!isProcessing && !error && files.length === 0 && (
             <FileInputTrigger
               onFilesSelected={addFiles}
               disabled={isProcessing}

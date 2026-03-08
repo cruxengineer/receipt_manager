@@ -32,6 +32,7 @@ function App() {
   const [swipeKey, setSwipeKey] = useState(0)
   const [returnAfterNames, setReturnAfterNames] = useState<AppState>('capture')
   const [isAddingAnother, setIsAddingAnother] = useState(false)
+  const [receiptGroupSizes, setReceiptGroupSizes] = useState<number[]>([])
 
   const handleUnlock = () => {
     sessionStorage.setItem(SESSION_KEY, 'true')
@@ -55,6 +56,7 @@ function App() {
     setAssignments([])
     setConfirmedItems([])
     setReviewItems([])
+    setReceiptGroupSizes([])
     setSkippedRegions([])
     setSourceFiles([])
     setPersonAName('Tom')
@@ -76,9 +78,11 @@ function App() {
       const result = await parseReceipt(files)
       if (isAddingAnother) {
         setReviewItems(prev => [...prev, ...result.items])
+        setReceiptGroupSizes(prev => [...prev, result.items.length])
         setIsAddingAnother(false)
       } else {
         setReviewItems(result.items)
+        setReceiptGroupSizes([result.items.length])
       }
       setSkippedRegions(result.skippedRegions)
       setAiAttempted(true)
@@ -106,6 +110,7 @@ function App() {
     setError(null)
     setAiAttempted(false)
     setReviewItems([])
+    setReceiptGroupSizes([])
     setSkippedRegions([])
     setAppState('review')
   }
@@ -145,6 +150,7 @@ function App() {
         skippedRegions={skippedRegions}
         sourceFiles={sourceFiles}
         aiAttempted={aiAttempted}
+        receiptGroupSizes={receiptGroupSizes}
         onConfirm={handleConfirm}
         onBack={handleBack}
         onAddAnother={handleAddAnotherReceipt}

@@ -48,8 +48,8 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **SUMM-03**: Summary screen shows split items clearly
 - [x] **SUMM-04**: Summary screen shows each person's total amount owed
 - [x] **SUMM-05**: Summary math is always correct (assigned + split = receipt total)
-- [ ] **SUMM-06**: User can go back and adjust assignments from summary
-- [ ] **SUMM-07**: User can start over with new receipt from summary
+- [x] **SUMM-06**: User can go back and adjust assignments from summary
+- [x] **SUMM-07**: User can start over with new receipt from summary
 
 ### UX & Platform
 
@@ -130,8 +130,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 | SUMM-03 | Phase 6 | Complete |
 | SUMM-04 | Phase 6 | Complete |
 | SUMM-05 | Phase 6 | Complete |
-| SUMM-06 | Phase 6 | Pending |
-| SUMM-07 | Phase 6 | Pending |
+| SUMM-06 | Phase 6 | Complete |
+| SUMM-07 | Phase 6 | Complete |
 | UX-01 | Phase 7 | Pending |
 | UX-02 | Phase 7 | Pending |
 | UX-03 | Phase 7 | Pending |

@@ -2,19 +2,19 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-current_plan: Not started
-status: unknown
-last_updated: "2026-03-08T01:31:35.013Z"
+current_plan: Phase 6 complete — all 18/18 plans done
+status: complete
+last_updated: "2026-03-08T02:15:00.000Z"
 progress:
   total_phases: 8
-  completed_phases: 5
+  completed_phases: 6
   total_plans: 18
-  completed_plans: 17
+  completed_plans: 18
 ---
 
 # Project State: ReceiptSplit
 
-**Last Updated:** 2026-03-07 (Plan 06-01 complete — SummaryScreen TDD, 16/16 new tests GREEN, 85 total)
+**Last Updated:** 2026-03-07 (Plan 06-02 complete — SummaryScreen wired into App.tsx, SUMM-06..07 delivered, human verified, Phase 6 complete)
 
 ## Project Reference
 
@@ -22,7 +22,7 @@ See: .planning/PROJECT.md (updated 2026-03-03)
 
 **Core value:** Fast, frictionless receipt splitting that feels natural on mobile and produces accurate totals every time.
 
-**Current focus:** Phase 6 (Summary Screen) in progress — 06-01 (SummaryScreen component TDD) complete. Next: 06-02 (App.tsx wiring).
+**Current focus:** Phase 6 (Summary Screen) complete — all 7 SUMM requirements delivered. Ready for Phase 7.
 
 ---
 
@@ -37,34 +37,34 @@ See: .planning/PROJECT.md (updated 2026-03-03)
 | 3 | ● Complete | 4/4 | 100% |
 | 4 | ● Complete | 2/2 | 100% |
 | 5 | ◑ In Progress | 2/3 | 67% |
-| 6 | ◑ In Progress | 1/2 | 50% |
+| 6 | ● Complete | 2/2 | 100% |
 | 7 | ○ Pending | 0/0 | 0% |
 | 8 | ○ Pending | 0/0 | 0% |
 
-**Overall:** [█████████░] 94% — 17/18 plans complete
+**Overall:** [██████████] 100% — 18/18 plans complete
 
 ---
 
 ## Current Phase
 
-**Phase 6: Summary Screen** — In progress. 06-01 (SummaryScreen component TDD) complete.
+**Phase 6: Summary Screen** — Complete. Both plans delivered: 06-01 (SummaryScreen TDD) + 06-02 (App.tsx wiring). All 7 SUMM requirements delivered, human verified.
 
-**Current Plan:** 06-02 (App.tsx wiring for SummaryScreen)
+**Current Plan:** Phase 6 complete — 18/18 plans done
 
 ---
 
 ## Next Actions
 
-1. Execute 06-02 — App.tsx wiring (add 'summary' state, import SummaryScreen, pass assignments/names/callbacks, handle Adjust/StartOver/EditNames)
-2. (Deferred from Phase 1) Configure Vercel account + add VERCEL_TOKEN, VERCEL_ORG_ID, VERCEL_PROJECT_ID secrets to GitHub repo
+1. (Deferred from Phase 1) Configure Vercel account + add VERCEL_TOKEN, VERCEL_ORG_ID, VERCEL_PROJECT_ID secrets to GitHub repo
+2. Plan Phase 7 and Phase 8 if additional features are needed
 
 ---
 
 ## Requirements Status
 
 **v1 Requirements:** 32 total
-- ✓ Validated: 26 (DEPL-01 confirmed by 01-02; DEPL-01..DEPL-03 addressed by 01-03; CAPT-01..CAPT-05 verified in Phase 2 — live deployment pending; PERS-01..PERS-03 delivered by 04-01; SWIP-02, SWIP-03, SWIP-05, SWIP-06 delivered by 05-01; SWIP-01, SWIP-04, SWIP-07, SWIP-08, SWIP-09 delivered by 05-02; SUMM-01..SUMM-05 delivered by 06-01)
-- ○ Pending: 6
+- ✓ Validated: 28 (DEPL-01 confirmed by 01-02; DEPL-01..DEPL-03 addressed by 01-03; CAPT-01..CAPT-05 verified in Phase 2 — live deployment pending; PERS-01..PERS-03 delivered by 04-01; SWIP-02, SWIP-03, SWIP-05, SWIP-06 delivered by 05-01; SWIP-01, SWIP-04, SWIP-07, SWIP-08, SWIP-09 delivered by 05-02; SUMM-01..SUMM-05 delivered by 06-01; SUMM-06, SUMM-07 delivered by 06-02)
+- ○ Pending: 4
 - ✗ Blocked: 0
 
 ---
@@ -111,9 +111,13 @@ See: .planning/PROJECT.md (updated 2026-03-03)
 - [Phase 05-02]: Three-dots Start over calls onComplete([]) — App.tsx interprets empty array as restart signal
 - [Phase 06-01]: Test assertions use getAllByText/length-check pattern for names appearing in both totals bar and section headers
 - [Phase 06-01]: Empty-assignments zero-check uses toBeGreaterThanOrEqual(2) because receipt total line also renders $0.00
+- [Phase 06-02]: swipeKey integer incremented on Adjust so SwipeScreen remounts fresh — no need to lift currentIndex into App.tsx
+- [Phase 06-02]: returnAfterNames state routes NamesModal confirm back to 'summary' when opened from SummaryScreen, then resets to default 'capture'
+- [Phase 06-02]: handleStartOver resets all six state slices including names to Tom/Jerry — full session clean slate per SUMM-07
 
 ## Recent Activity
 
+- 2026-03-07: Plan 06-02 complete — SummaryScreen wired into App.tsx; SUMM-06..07 delivered; human verified all 10 steps; Phase 6 complete (commit: 58ada2f)
 - 2026-03-07: Plan 06-01 complete — SummaryScreen TDD; SUMM-01..05 delivered; 16/16 new tests GREEN, 85 total (commits: def47e1, 53b10a0)
 - 2026-03-07: Plan 05-02 complete — SwipeScreen component TDD; SWIP-01/04/07/08/09 delivered; 13/13 tests GREEN, 69 total (commits: eb2f44e, 4950730)
 - 2026-03-07: Plan 05-01 complete — swipe types (ItemAssignment, SwipeAssignments) + useSwipeGesture hook TDD; SWIP-02/03/05/06 delivered; 56/56 tests GREEN (commits: 16c1960, f78a4dd, 3560f98)
@@ -157,9 +161,9 @@ See: .planning/PROJECT.md (updated 2026-03-03)
 | 05-swipe-interface-core | 01 | 2min | 3 | 3 |
 | 05-swipe-interface-core | 02 | 2min | 2 | 2 |
 | 06-summary-screen | 01 | 5min | 2 | 2 |
+| 06-summary-screen | 02 | 10min | 2 | 1 |
 
 ---
 
 *State tracking initialized 2026-03-03*
-*Last session: 2026-03-07 — Stopped at: Completed 06-summary-screen/06-01-PLAN.md*
-
+*Last session: 2026-03-07 — Stopped at: Completed 06-summary-screen/06-02-PLAN.md*

@@ -36,7 +36,6 @@ export function FileInputTrigger({ onFilesSelected, disabled }: FileInputTrigger
         ref={inputRef}
         type="file"
         accept="image/*"
-        multiple
         className="sr-only"
         aria-hidden="true"
         tabIndex={-1}

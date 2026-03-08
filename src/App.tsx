@@ -31,6 +31,7 @@ function App() {
   const [assignments, setAssignments] = useState<SwipeAssignments>([])
   const [swipeKey, setSwipeKey] = useState(0)
   const [returnAfterNames, setReturnAfterNames] = useState<AppState>('capture')
+  const [isAddingAnother, setIsAddingAnother] = useState(false)
 
   const handleUnlock = () => {
     sessionStorage.setItem(SESSION_KEY, 'true')
@@ -69,11 +70,16 @@ function App() {
 
   const handleSubmit = async (files: File[]) => {
     setError(null)
-    setSourceFiles(files)   // Retain files for ReviewScreen crop rendering
+    setSourceFiles(files)
     setAppState('processing')
     try {
       const result = await parseReceipt(files)
-      setReviewItems(result.items)
+      if (isAddingAnother) {
+        setReviewItems(prev => [...prev, ...result.items])
+        setIsAddingAnother(false)
+      } else {
+        setReviewItems(result.items)
+      }
       setSkippedRegions(result.skippedRegions)
       setAiAttempted(true)
       setAppState('review')
@@ -85,6 +91,14 @@ function App() {
 
   const handleRetry = () => {
     setError(null)
+    setIsAddingAnother(false)
+    setAppState('capture')
+  }
+
+  const handleAddAnotherReceipt = () => {
+    setIsAddingAnother(true)
+    setSkippedRegions([])
+    setSourceFiles([])
     setAppState('capture')
   }
 
@@ -133,6 +147,7 @@ function App() {
         aiAttempted={aiAttempted}
         onConfirm={handleConfirm}
         onBack={handleBack}
+        onAddAnother={handleAddAnotherReceipt}
       />
     )
   }

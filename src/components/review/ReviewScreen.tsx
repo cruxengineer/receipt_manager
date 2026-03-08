@@ -15,6 +15,8 @@ interface ReviewScreenProps {
   onConfirm: (items: ReceiptItem[]) => void
   /** Called when user wants to go back to the capture screen. */
   onBack?: () => void
+  /** Called when user wants to scan an additional receipt and append its items. */
+  onAddAnother?: () => void
 }
 
 export function ReviewScreen({
@@ -24,6 +26,7 @@ export function ReviewScreen({
   aiAttempted = false,
   onConfirm,
   onBack,
+  onAddAnother,
 }: ReviewScreenProps) {
   const [editedItems, setEditedItems] = useState<ReceiptItem[]>(() => [...items])
   const [newName, setNewName] = useState('')
@@ -156,6 +159,18 @@ export function ReviewScreen({
               Add item
             </Button>
           </div>
+
+          {/* Add another receipt */}
+          {onAddAnother && (
+            <Button
+              type="button"
+              variant="outline"
+              className="w-full"
+              onClick={onAddAnother}
+            >
+              + Add another receipt
+            </Button>
+          )}
 
           {/* Start splitting button */}
           <Button

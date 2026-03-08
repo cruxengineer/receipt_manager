@@ -4,12 +4,12 @@ import { describe, it, expect, vi } from 'vitest'
 import CaptureScreen from './CaptureScreen'
 
 describe('CaptureScreen', () => {
-  it('renders a file input with accept="image/*" and multiple (CAPT-01, CAPT-02)', () => {
+  it('renders a file input with accept="image/*" (CAPT-01, CAPT-02)', () => {
     render(<CaptureScreen />)
     const input = document.querySelector('input[type="file"]') as HTMLInputElement
     expect(input).toBeTruthy()
     expect(input.accept).toBe('image/*')
-    expect(input.multiple).toBe(true)
+    expect(input.multiple).toBe(false)
   })
 
   it('does NOT use capture attribute (iOS action sheet requirement)', () => {

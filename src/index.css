@@ -5,6 +5,24 @@
   to   { opacity: 1; transform: scale(1)    translateY(0px); }
 }
 
+/* Screen transition: forward navigation — new screen slides in from the right */
+@keyframes slideInFromRight {
+  from { transform: translateX(100%); }
+  to   { transform: translateX(0); }
+}
+
+/* Screen transition: back navigation — new screen slides in from the left */
+@keyframes slideInFromLeft {
+  from { transform: translateX(-100%); }
+  to   { transform: translateX(0); }
+}
+
+/* Screen transition: Start Over — fade out before reset */
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
 @layer base {
   :root {
     /* Person A - Blue (primary) */
@@ -50,6 +68,15 @@
   }
   .pb-safe-6 {
     padding-bottom: max(env(safe-area-inset-bottom), 1.5rem);
+  }
+  .screen-slide-forward {
+    animation: slideInFromRight 350ms ease-out both;
+  }
+  .screen-slide-back {
+    animation: slideInFromLeft 350ms ease-out both;
+  }
+  .screen-fade-out {
+    animation: fadeOut 200ms ease-in both;
   }
 }
 

@@ -54,7 +54,7 @@ Requirements for initial release. Each maps to roadmap phases.
 ### UX & Platform
 
 - [ ] **UX-01**: App is mobile-first and works smoothly on iPhone Safari
-- [ ] **UX-02**: All touch targets are thumb-friendly (large enough)
+- [x] **UX-02**: All touch targets are thumb-friendly (large enough)
 - [ ] **UX-03**: Full receipt split completable in under 2 minutes
 - [ ] **UX-04**: No login required (stateless, session-based)
 
@@ -133,7 +133,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | SUMM-06 | Phase 6 | Complete |
 | SUMM-07 | Phase 6 | Complete |
 | UX-01 | Phase 7 | Pending |
-| UX-02 | Phase 7 | Pending |
+| UX-02 | Phase 7 | Complete |
 | UX-03 | Phase 7 | Pending |
 | UX-04 | Phase 7 | Pending |
 | DEPL-01 | Phase 1 | Complete |

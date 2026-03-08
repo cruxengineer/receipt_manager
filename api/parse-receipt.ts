@@ -48,7 +48,7 @@ export default async function handler(
   try {
     const client = new Anthropic({ apiKey })
 
-    const validTypes = new Set(['image/jpeg', 'image/png', 'image/gif', 'image/webp'])
+    const validTypes = new Set<string>(['image/jpeg', 'image/png', 'image/gif', 'image/webp'])
     const imageBlocks = images.map((img) => ({
       type: 'image' as const,
       source: {
@@ -58,7 +58,7 @@ export default async function handler(
           | 'image/png'
           | 'image/gif'
           | 'image/webp',
-        data: img.base64,
+        data: img.base64 ?? '',
       },
     }))
 

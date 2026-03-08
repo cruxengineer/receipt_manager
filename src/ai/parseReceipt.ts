@@ -9,16 +9,31 @@ const MOCK_ITEMS: ReceiptItem[] = [
   { name: 'Tip', price: 5.00 },
 ]
 
-async function fileToBase64(file: File): Promise<string> {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader()
-    reader.onload = () => {
-      const result = reader.result as string
-      resolve(result.split(',')[1])
-    }
-    reader.onerror = reject
-    reader.readAsDataURL(file)
-  })
+// Re-encode any image file as a JPEG via canvas.
+// This guarantees clean JPEG base64 regardless of source format (HEIC, HEIF, PNG, etc.)
+// and keeps file sizes manageable for the Anthropic API.
+async function normalizeToJpegBase64(file: File): Promise<string> {
+  const url = URL.createObjectURL(file)
+  try {
+    const img = await new Promise<HTMLImageElement>((resolve, reject) => {
+      const el = new Image()
+      el.onload = () => resolve(el)
+      el.onerror = reject
+      el.src = url
+    })
+    const canvas = document.createElement('canvas')
+    // Cap at 2048px on the long edge to keep payload sizes reasonable
+    const MAX = 2048
+    const scale = Math.min(1, MAX / Math.max(img.naturalWidth, img.naturalHeight))
+    canvas.width = Math.round(img.naturalWidth * scale)
+    canvas.height = Math.round(img.naturalHeight * scale)
+    const ctx = canvas.getContext('2d')!
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
+    const dataUrl = canvas.toDataURL('image/jpeg', 0.88)
+    return dataUrl.split(',')[1]
+  } finally {
+    URL.revokeObjectURL(url)
+  }
 }
 
 export async function parseReceipt(files: File[]): Promise<ParseReceiptResult> {
@@ -27,14 +42,12 @@ export async function parseReceipt(files: File[]): Promise<ParseReceiptResult> {
     return { items: MOCK_ITEMS, skippedRegions: [] }
   }
 
-  // Convert files to base64 for the server-side Anthropic call
+  // Convert files to base64 for the server-side Anthropic call.
+  // All files are normalized to JPEG via canvas so HEIC and other formats work reliably.
   const images = await Promise.all(
     files.map(async (file) => {
-      const base64 = await fileToBase64(file)
-      // Normalize HEIC → jpeg (Anthropic API does not accept heic media type)
-      const mediaType =
-        file.type === 'image/heic' || file.type === 'image/heif' ? 'image/jpeg' : file.type
-      return { base64, mediaType }
+      const base64 = await normalizeToJpegBase64(file)
+      return { base64, mediaType: 'image/jpeg' }
     }),
   )
 

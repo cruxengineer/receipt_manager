@@ -1,7 +1,7 @@
 import { useState, useRef, useCallback } from 'react'
 
 interface UseSwipeGestureOptions {
-  threshold?: number // px before commit fires; default 120
+  threshold?: number // px before commit fires; default 160
 }
 
 interface UseSwipeGestureReturn {
@@ -20,7 +20,7 @@ interface UseSwipeGestureReturn {
 }
 
 export function useSwipeGesture(options?: UseSwipeGestureOptions): UseSwipeGestureReturn {
-  const threshold = options?.threshold ?? 120
+  const threshold = options?.threshold ?? 160
 
   const [dragX, setDragX] = useState(0)
   const [isDragging, setIsDragging] = useState(false)

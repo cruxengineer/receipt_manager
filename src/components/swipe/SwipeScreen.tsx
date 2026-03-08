@@ -17,12 +17,13 @@ export function SwipeScreen({ items, personAName, personBName, onComplete }: Swi
   const [assignments, setAssignments] = useState<ItemAssignment[]>([])
   const [allDone, setAllDone] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const [isFlyingOut, setIsFlyingOut] = useState<'left' | 'right' | null>(null)
+  const [splitFlash, setSplitFlash] = useState(false)
 
   const gesture = useSwipeGesture()
 
   const currentItem = items[currentIndex]
 
-  // Derived running totals
   const totalA = assignments.reduce((sum, a) => {
     if (a.assignee === 'A') return sum + a.item.price
     if (a.assignee === 'split') return sum + a.item.price / 2
@@ -41,7 +42,6 @@ export function SwipeScreen({ items, personAName, personBName, onComplete }: Swi
       const newAssignments = [...assignments, newAssignment]
       setAssignments(newAssignments)
       if (currentIndex === items.length - 1) {
-        // Render "All done!" immediately, then notify parent after 1500ms
         setAllDone(true)
         setTimeout(() => onComplete(newAssignments), 1500)
       } else {
@@ -58,20 +58,31 @@ export function SwipeScreen({ items, personAName, personBName, onComplete }: Swi
     }
   }
 
-  // Wire committed gesture to handleAssign
+  const handleSplitClick = () => {
+    setSplitFlash(true)
+    setTimeout(() => setSplitFlash(false), 500)
+    handleAssign('split')
+  }
+
+  // Wire committed gesture → fly-off animation → assign
   useEffect(() => {
-    if (gesture.committed) {
+    if (gesture.committed && !isFlyingOut) {
       const dir = gesture.direction
-      if (dir === 'left') handleAssign('A')
-      else if (dir === 'right') handleAssign('B')
-      setTimeout(() => gesture.reset(), 50)
+      if (!dir) return
+      setIsFlyingOut(dir)
+      setTimeout(() => {
+        if (dir === 'left') handleAssign('A')
+        else if (dir === 'right') handleAssign('B')
+        setIsFlyingOut(null)
+        gesture.reset()
+      }, 320)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gesture.committed])
 
   if (allDone) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="h-dvh bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <Check className="w-16 h-16 text-green-500 mx-auto mb-4" />
           <p className="text-2xl font-bold text-gray-900">All done!</p>
@@ -82,12 +93,23 @@ export function SwipeScreen({ items, personAName, personBName, onComplete }: Swi
 
   const isFirstCard = currentIndex === 0 && assignments.length === 0
 
+  // Card transform: fly-off overrides gesture drag
+  const cardTransform = isFlyingOut === 'left'
+    ? 'translateX(-120vw) rotate(-28deg)'
+    : isFlyingOut === 'right'
+    ? 'translateX(120vw) rotate(28deg)'
+    : `translateX(${gesture.dragX}px) rotate(${gesture.rotation}deg)`
+
+  const cardTransition = isFlyingOut
+    ? 'transform 0.32s ease-in'
+    : gesture.dragX === 0 ? 'transform 0.3s ease' : 'none'
+
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
-      <div className="max-w-md mx-auto w-full flex flex-col flex-1 relative">
+    <div className="h-dvh bg-gray-50 flex flex-col overflow-hidden">
+      <div className="max-w-md mx-auto w-full flex flex-col flex-1 relative min-h-0">
 
         {/* Top bar: back + progress + three-dots */}
-        <div className="flex items-center justify-between px-4 pt-4 pb-2">
+        <div className="flex items-center justify-between px-3 pt-4 pb-1 flex-shrink-0">
           <Button
             variant="ghost"
             size="sm"
@@ -95,9 +117,9 @@ export function SwipeScreen({ items, personAName, personBName, onComplete }: Swi
             disabled={currentIndex === 0 && assignments.length === 0}
             aria-label="back"
           >
-            <ArrowLeft className="w-4 h-4" />
+            <ArrowLeft className="w-5 h-5" />
           </Button>
-          <span className="text-sm text-gray-500">
+          <span className="text-sm font-medium text-gray-500">
             Item {currentIndex + 1} of {items.length}
           </span>
           <Button
@@ -106,13 +128,13 @@ export function SwipeScreen({ items, personAName, personBName, onComplete }: Swi
             onClick={() => setMenuOpen(v => !v)}
             aria-label="menu"
           >
-            <MoreHorizontal className="w-4 h-4" />
+            <MoreHorizontal className="w-5 h-5" />
           </Button>
         </div>
 
-        {/* Three-dots dropdown menu */}
+        {/* Three-dots dropdown */}
         {menuOpen && (
-          <div className="absolute top-14 right-4 bg-white rounded-lg shadow-md border border-gray-100 z-10">
+          <div className="absolute top-14 right-3 bg-white rounded-lg shadow-md border border-gray-100 z-10">
             <button
               className="block w-full px-4 py-2 text-sm text-left text-red-500 hover:bg-gray-50 rounded-lg"
               onClick={() => {
@@ -126,85 +148,91 @@ export function SwipeScreen({ items, personAName, personBName, onComplete }: Swi
         )}
 
         {/* Running totals bar */}
-        <div className="flex justify-around px-4 py-2 bg-white border-b border-gray-100">
-          <div
-            className="text-center"
-            style={{ color: 'var(--color-person-a)' }}
-          >
-            <div className="text-xs font-medium">{personAName}</div>
-            <div className="text-lg font-bold">${totalA.toFixed(2)}</div>
+        <div className="flex justify-around px-6 py-2.5 bg-white border-b border-gray-100 flex-shrink-0">
+          <div className="text-center" style={{ color: 'var(--color-person-a)' }}>
+            <div className="text-xs font-semibold tracking-wide">{personAName}</div>
+            <div className="text-xl font-bold">${totalA.toFixed(2)}</div>
           </div>
-          <div
-            className="text-center"
-            style={{ color: 'var(--color-person-b)' }}
-          >
-            <div className="text-xs font-medium">{personBName}</div>
-            <div className="text-lg font-bold">${totalB.toFixed(2)}</div>
+          <div className="w-px bg-gray-100 self-stretch" />
+          <div className="text-center" style={{ color: 'var(--color-person-b)' }}>
+            <div className="text-xs font-semibold tracking-wide">{personBName}</div>
+            <div className="text-xl font-bold">${totalB.toFixed(2)}</div>
           </div>
         </div>
 
-        {/* Card area — dominant element */}
-        <div className="flex-1 flex items-center justify-center px-6 relative">
-          {/* Color tint background (fades in behind card) */}
+        {/* Card area */}
+        <div className="flex-1 flex items-center justify-center px-5 relative min-h-0">
+          {/* Color tint background */}
           <div
             className="absolute inset-0 pointer-events-none"
             style={{
               backgroundColor:
-                gesture.direction === 'left' || gesture.dragX < 0
+                isFlyingOut === 'left' || gesture.dragX < 0
                   ? 'var(--color-person-a-light)'
                   : 'var(--color-person-b-light)',
-              opacity: gesture.tintOpacity,
+              opacity: isFlyingOut ? 0.25 : gesture.tintOpacity,
+              transition: 'opacity 0.2s ease',
             }}
           />
 
-          {/* Item card */}
+          {/* Card wrapper — remounts per card, triggers enter animation */}
           <div
-            className="relative bg-white rounded-2xl shadow-lg p-8 w-full touch-none select-none"
-            style={{
-              transform: `translateX(${gesture.dragX}px) rotate(${gesture.rotation}deg)`,
-              transition: gesture.dragX === 0 ? 'transform 0.3s ease' : 'none',
-            }}
-            {...gesture.handlers}
+            key={currentIndex}
+            className="w-full"
+            style={{ animation: 'cardEnter 0.22s ease-out' }}
           >
-            {/* Directional label */}
-            {gesture.tintOpacity > 0.1 && (
-              <div
-                className="absolute top-4 font-bold text-lg"
-                style={{
-                  color: gesture.dragX < 0 ? 'var(--color-person-a)' : 'var(--color-person-b)',
-                  left: gesture.dragX < 0 ? '1rem' : undefined,
-                  right: gesture.dragX >= 0 ? '1rem' : undefined,
-                  opacity: gesture.tintOpacity,
-                }}
-              >
-                {gesture.dragX < 0 ? personAName : personBName}
-              </div>
-            )}
+            {/* Card inner — gesture transform and fly-off */}
+            <div
+              className="relative bg-white rounded-2xl shadow-lg p-8 w-full touch-none select-none"
+              style={{ transform: cardTransform, transition: cardTransition }}
+              {...gesture.handlers}
+            >
+              {/* Directional name label */}
+              {gesture.tintOpacity > 0.08 && !isFlyingOut && (
+                <div
+                  className="absolute top-5 font-bold text-base"
+                  style={{
+                    color: gesture.dragX < 0 ? 'var(--color-person-a)' : 'var(--color-person-b)',
+                    left: gesture.dragX < 0 ? '1.25rem' : undefined,
+                    right: gesture.dragX >= 0 ? '1.25rem' : undefined,
+                    opacity: gesture.tintOpacity,
+                  }}
+                >
+                  {gesture.dragX < 0 ? personAName : personBName}
+                </div>
+              )}
 
-            <div className="text-center mt-4">
-              <p className="text-xl font-semibold text-gray-900">{currentItem.name}</p>
-              <p className="text-4xl font-bold text-gray-900 mt-2">
-                ${currentItem.price.toFixed(2)}
-              </p>
+              <div className="text-center py-4">
+                <p className="text-xl font-semibold text-gray-700 leading-snug">
+                  {currentItem.name}
+                </p>
+                <p className="text-5xl font-bold text-gray-900 mt-3">
+                  ${currentItem.price.toFixed(2)}
+                </p>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Split button + hint */}
-        <div className="px-6 pb-6 flex flex-col items-center gap-3">
-          <Button
-            variant="outline"
-            className="w-full h-11"
-            onClick={() => handleAssign('split')}
-            aria-label="Split equally"
-          >
-            Split equally
-          </Button>
+        {/* Hint + split button */}
+        <div className="flex flex-col items-center gap-3 pt-4 pb-8 flex-shrink-0">
           {isFirstCard && (
-            <p className="text-sm text-gray-400">
+            <p className="text-xs text-gray-400 tracking-wide">
               ← {personAName} · Split · {personBName} →
             </p>
           )}
+          <button
+            onClick={handleSplitClick}
+            aria-label="Split equally"
+            className="w-20 h-20 rounded-full border border-gray-200 shadow-md flex flex-col items-center justify-center gap-0.5 active:scale-95"
+            style={{
+              backgroundColor: splitFlash ? 'var(--color-person-a-light)' : 'white',
+              transition: 'background-color 0.4s ease, transform 0.1s ease',
+            }}
+          >
+            <span className="text-sm font-semibold text-gray-700 leading-none">Split</span>
+            <span className="text-xs text-gray-400 leading-none">50/50</span>
+          </button>
         </div>
 
       </div>

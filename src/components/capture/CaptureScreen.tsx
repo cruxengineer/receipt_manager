@@ -41,7 +41,7 @@ interface CaptureScreenProps {
  * - File list state (files, addFiles, removeFile, clearFiles) — owned by useReceiptFiles hook
  * - isProcessing, error — lifted to caller (App.tsx) so Phase 3 can control them
  *
- * Layout: max-w-md centered card (established pattern from Phase 1 App.tsx)
+ * Layout: h-dvh locked layout with safe area padding for iPhone 16 Dynamic Island support
  */
 export default function CaptureScreen({
   isProcessing = false,
@@ -63,65 +63,63 @@ export default function CaptureScreen({
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 p-4">
-      <div className="max-w-md mx-auto space-y-4">
+    <div className="h-dvh bg-gray-50 flex flex-col overflow-hidden">
+      <div className="max-w-md mx-auto w-full flex flex-col flex-1 min-h-0">
 
-        {/* Header */}
-        <header className="text-center py-6">
+        {/* Header — flex-shrink-0 with safe area top padding */}
+        <header className="text-center py-6 px-4 flex-shrink-0 pt-safe-4">
           <h1 className="text-3xl font-bold text-gray-900">ReceiptSplit</h1>
           <p className="text-gray-500 mt-1 text-sm">
             Upload a receipt photo to get started
           </p>
         </header>
 
-        {/* Main card */}
-        <div className="bg-white rounded-lg shadow p-6 space-y-4">
-
-          {/* Status: spinner or error — replaces add button when active */}
-          <UploadStatus
-            isProcessing={isProcessing}
-            error={error}
-            onRetry={handleRetry}
-          />
-
-          {/* Add photo button — hidden once a file is selected, while processing, or on error */}
-          {!isProcessing && !error && files.length === 0 && (
-            <FileInputTrigger
-              onFilesSelected={addFiles}
-              disabled={isProcessing}
+        {/* Scrollable main area */}
+        <div className="flex-1 overflow-y-auto px-4 space-y-4">
+          {/* Main card */}
+          <div className="bg-white rounded-lg shadow p-6 space-y-4">
+            <UploadStatus
+              isProcessing={isProcessing}
+              error={error}
+              onRetry={handleRetry}
             />
-          )}
+            {!isProcessing && !error && files.length === 0 && (
+              <FileInputTrigger
+                onFilesSelected={addFiles}
+                disabled={isProcessing}
+              />
+            )}
+            {files.length > 0 && !isProcessing && (
+              <ImagePreviewList files={files} onRemove={removeFile} />
+            )}
+            {files.length > 0 && !isProcessing && !error && (
+              <Button
+                onClick={handleSubmit}
+                className="w-full"
+                variant="default"
+              >
+                Process {files.length === 1 ? 'Receipt' : `${files.length} Receipts`}
+              </Button>
+            )}
+          </div>
 
-          {/* Image previews */}
-          {files.length > 0 && !isProcessing && (
-            <ImagePreviewList files={files} onRemove={removeFile} />
-          )}
-
-          {/* Process button — only shown when files are ready and idle */}
-          {files.length > 0 && !isProcessing && !error && (
-            <Button
-              onClick={handleSubmit}
-              className="w-full"
-              variant="default"
-            >
-              Process {files.length === 1 ? 'Receipt' : `${files.length} Receipts`}
-            </Button>
+          {/* Always-available manual entry fallback */}
+          {onAddManually && !isProcessing && (
+            <p className="text-center text-sm text-gray-400">
+              or{' '}
+              <button
+                type="button"
+                onClick={onAddManually}
+                className="underline underline-offset-2 hover:text-gray-600"
+              >
+                add items manually
+              </button>
+            </p>
           )}
         </div>
 
-        {/* Always-available manual entry fallback */}
-        {onAddManually && !isProcessing && (
-          <p className="text-center text-sm text-gray-400">
-            or{' '}
-            <button
-              type="button"
-              onClick={onAddManually}
-              className="underline underline-offset-2 hover:text-gray-600"
-            >
-              add items manually
-            </button>
-          </p>
-        )}
+        {/* Bottom safe area spacer */}
+        <div className="flex-shrink-0 pb-safe" />
 
       </div>
     </div>

@@ -169,7 +169,13 @@ Plans:
 **Requirements:**
 - UX-01, UX-02, UX-03, UX-04
 
-**Plans:** [To be planned]
+**Plans:** 4 plans
+
+Plans:
+- [ ] 07-01-PLAN.md — Wave 1: Global iOS safari polish — viewport-fit=cover, tap highlight removal, safe area insets, h-dvh layout for CaptureScreen and SummaryScreen
+- [ ] 07-02-PLAN.md — Wave 1: Touch target expansion — SwipeScreen back/three-dots and SummaryScreen pencil icon to 44x44px
+- [ ] 07-03-PLAN.md — Wave 2: Screen-to-screen slide transitions in App.tsx (forward/back/fade)
+- [ ] 07-04-PLAN.md — Wave 3: Human verification on iPhone Safari — all 4 UX requirements
 
 **Success Criteria:**
 1. App tested and working smoothly on iPhone Safari (primary target)
@@ -225,4 +231,4 @@ Plans:
 ---
 
 *Roadmap created: 2026-03-03*
-*Last updated: 2026-03-07 after Phase 6 planning (2 plans created)*
+*Last updated: 2026-03-08 after Phase 7 planning (4 plans created)*

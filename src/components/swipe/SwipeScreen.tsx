@@ -116,6 +116,7 @@ export function SwipeScreen({ items, personAName, personBName, onComplete }: Swi
             onClick={handleBack}
             disabled={currentIndex === 0 && assignments.length === 0}
             aria-label="back"
+            className="min-w-[44px] min-h-[44px]"
           >
             <ArrowLeft className="w-5 h-5" />
           </Button>
@@ -127,6 +128,7 @@ export function SwipeScreen({ items, personAName, personBName, onComplete }: Swi
             size="sm"
             onClick={() => setMenuOpen(v => !v)}
             aria-label="menu"
+            className="min-w-[44px] min-h-[44px]"
           >
             <MoreHorizontal className="w-5 h-5" />
           </Button>

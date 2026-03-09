@@ -33,35 +33,23 @@ function App() {
   const [returnAfterNames, setReturnAfterNames] = useState<AppState>('capture')
   const [isAddingAnother, setIsAddingAnother] = useState(false)
   const [receiptGroupSizes, setReceiptGroupSizes] = useState<number[]>([])
-  const [transitionClass, setTransitionClass] = useState('')
-  const [transitionKey, setTransitionKey] = useState(0)
-
-  const navigate = (next: AppState, direction: 'forward' | 'back' | 'fade' | 'none') => {
-    const cls =
-      direction === 'forward' ? 'screen-slide-forward' :
-      direction === 'back'    ? 'screen-slide-back' :
-      direction === 'fade'    ? 'screen-fade-out' : ''
-    setTransitionClass(cls)
-    setTransitionKey(k => k + 1)
-    setAppState(next)
-  }
 
   const handleUnlock = () => {
     sessionStorage.setItem(SESSION_KEY, 'true')
-    navigate('names', 'forward')
+    setAppState('names')
   }
 
   const handleNamesConfirm = (nameA: string, nameB: string) => {
     setPersonAName(nameA.trim() || 'Tom')
     setPersonBName(nameB.trim() || 'Jerry')
-    navigate(returnAfterNames, returnAfterNames === 'summary' ? 'back' : 'forward')
+    setAppState(returnAfterNames)
     setReturnAfterNames('capture')   // reset to default for next time
   }
 
   const handleAdjust = () => {
     setAssignments([])
     setSwipeKey(k => k + 1)   // remounts SwipeScreen, resets its internal currentIndex
-    navigate('swipe', 'back')
+    setAppState('swipe')
   }
 
   const handleStartOver = () => {
@@ -72,18 +60,18 @@ function App() {
     setSkippedRegions([])
     setSourceFiles([])
     setSwipeKey(k => k + 1)
-    navigate('capture', 'fade')
+    setAppState('capture')
   }
 
   const handleEditNamesFromSummary = () => {
     setReturnAfterNames('summary')
-    navigate('names', 'none')
+    setAppState('names')
   }
 
   const handleSubmit = async (files: File[]) => {
     setError(null)
     setSourceFiles(files)
-    navigate('processing', 'none')
+    setAppState('processing')
     try {
       const result = await parseReceipt(files)
       if (isAddingAnother) {
@@ -96,24 +84,24 @@ function App() {
       }
       setSkippedRegions(result.skippedRegions)
       setAiAttempted(true)
-      navigate('review', 'forward')
+      setAppState('review')
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Something went wrong. Please try again.')
-      navigate('capture', 'none')
+      setAppState('capture')
     }
   }
 
   const handleRetry = () => {
     setError(null)
     setIsAddingAnother(false)
-    navigate('capture', 'none')
+    setAppState('capture')
   }
 
   const handleAddAnotherReceipt = () => {
     setIsAddingAnother(true)
     setSkippedRegions([])
     setSourceFiles([])
-    navigate('capture', 'none')
+    setAppState('capture')
   }
 
   const handleAddManually = () => {
@@ -122,93 +110,81 @@ function App() {
     setReviewItems([])
     setReceiptGroupSizes([])
     setSkippedRegions([])
-    navigate('review', 'forward')
+    setAppState('review')
   }
 
   const handleBack = () => {
-    navigate('capture', 'back')
+    setAppState('capture')
   }
 
   const handleConfirm = (items: ReceiptItem[]) => {
     setConfirmedItems(items)
-    navigate('swipe', 'forward')
+    setAppState('swipe')
   }
 
   const handleSwipeComplete = (result: SwipeAssignments) => {
     setAssignments(result)
-    navigate('summary', 'forward')
+    setAppState('summary')
   }
 
-  const screenContent = (() => {
-    if (appState === 'gate') {
-      return <PasswordGate onUnlock={handleUnlock} />
-    }
-    if (appState === 'names') {
-      return (
-        <NamesModal
-          defaultNameA={personAName}
-          defaultNameB={personBName}
-          onConfirm={handleNamesConfirm}
-        />
-      )
-    }
-    if (appState === 'review') {
-      return (
-        <ReviewScreen
-          items={reviewItems}
-          skippedRegions={skippedRegions}
-          sourceFiles={sourceFiles}
-          aiAttempted={aiAttempted}
-          receiptGroupSizes={receiptGroupSizes}
-          onConfirm={handleConfirm}
-          onBack={handleBack}
-          onAddAnother={handleAddAnotherReceipt}
-        />
-      )
-    }
-    if (appState === 'swipe') {
-      return (
-        <SwipeScreen
-          key={swipeKey}
-          items={confirmedItems}
-          personAName={personAName}
-          personBName={personBName}
-          onComplete={handleSwipeComplete}
-        />
-      )
-    }
-    if (appState === 'summary') {
-      return (
-        <SummaryScreen
-          assignments={assignments}
-          personAName={personAName}
-          personBName={personBName}
-          onAdjust={handleAdjust}
-          onStartOver={handleStartOver}
-          onEditNames={handleEditNamesFromSummary}
-        />
-      )
-    }
-    // appState === 'capture' | 'processing'
+  if (appState === 'gate') {
+    return <PasswordGate onUnlock={handleUnlock} />
+  }
+  if (appState === 'names') {
     return (
-      <CaptureScreen
-        isProcessing={appState === 'processing'}
-        error={error}
-        onRetry={handleRetry}
-        onAddManually={handleAddManually}
-        onSubmit={handleSubmit}
+      <NamesModal
+        defaultNameA={personAName}
+        defaultNameB={personBName}
+        onConfirm={handleNamesConfirm}
       />
     )
-  })()
-
+  }
+  if (appState === 'review') {
+    return (
+      <ReviewScreen
+        items={reviewItems}
+        skippedRegions={skippedRegions}
+        sourceFiles={sourceFiles}
+        aiAttempted={aiAttempted}
+        receiptGroupSizes={receiptGroupSizes}
+        onConfirm={handleConfirm}
+        onBack={handleBack}
+        onAddAnother={handleAddAnotherReceipt}
+      />
+    )
+  }
+  if (appState === 'swipe') {
+    return (
+      <SwipeScreen
+        key={swipeKey}
+        items={confirmedItems}
+        personAName={personAName}
+        personBName={personBName}
+        onComplete={handleSwipeComplete}
+      />
+    )
+  }
+  if (appState === 'summary') {
+    return (
+      <SummaryScreen
+        assignments={assignments}
+        personAName={personAName}
+        personBName={personBName}
+        onAdjust={handleAdjust}
+        onStartOver={handleStartOver}
+        onEditNames={handleEditNamesFromSummary}
+      />
+    )
+  }
+  // appState === 'capture' | 'processing'
   return (
-    <div
-      key={transitionKey}
-      className={transitionClass}
-      style={{ willChange: transitionClass ? 'transform, opacity' : undefined }}
-    >
-      {screenContent}
-    </div>
+    <CaptureScreen
+      isProcessing={appState === 'processing'}
+      error={error}
+      onRetry={handleRetry}
+      onAddManually={handleAddManually}
+      onSubmit={handleSubmit}
+    />
   )
 }
 

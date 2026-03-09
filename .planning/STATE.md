@@ -2,19 +2,19 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-current_plan: "07-03 complete — next: 07-04"
-status: in-progress
-last_updated: "2026-03-08T23:26:00Z"
+current_plan: "07-04 complete — Phase 7 complete"
+status: complete
+last_updated: "2026-03-08T23:31:00Z"
 progress:
   total_phases: 8
-  completed_phases: 6
+  completed_phases: 7
   total_plans: 22
-  completed_plans: 21
+  completed_plans: 22
 ---
 
 # Project State: ReceiptSplit
 
-**Last Updated:** 2026-03-08 (Plan 07-03 complete — CSS slide transitions (slideInFromRight/Left/fadeOut) + navigate() helper in App.tsx; UX-01 and UX-03 delivered)
+**Last Updated:** 2026-03-08 (Plan 07-04 complete — iPhone Safari human verification approved; all Phase 7 UX changes confirmed; UX-01 through UX-04 all delivered; Phase 7 complete)
 
 ## Project Reference
 
@@ -22,7 +22,7 @@ See: .planning/PROJECT.md (updated 2026-03-03)
 
 **Core value:** Fast, frictionless receipt splitting that feels natural on mobile and produces accurate totals every time.
 
-**Current focus:** Phase 7 (Mobile UX Polish) in progress — 07-01 (safe area insets) and 07-02 (touch targets) complete.
+**Current focus:** Phase 7 (Mobile UX Polish) complete — all 4 plans done, all UX requirements (UX-01 through UX-04) delivered and human-verified on iPhone Safari.
 
 ---
 
@@ -38,18 +38,18 @@ See: .planning/PROJECT.md (updated 2026-03-03)
 | 4 | ● Complete | 2/2 | 100% |
 | 5 | ◑ In Progress | 2/3 | 67% |
 | 6 | ● Complete | 2/2 | 100% |
-| 7 | ◑ In Progress | 3/4 | 75% |
+| 7 | ● Complete | 4/4 | 100% |
 | 8 | ○ Pending | 0/0 | 0% |
 
-**Overall:** [██████████] 95% — 21/22 plans complete
+**Overall:** [██████████] 100% — 22/22 plans complete
 
 ---
 
 ## Current Phase
 
-**Phase 7: Mobile UX Polish** — In progress. 07-01 (safe area insets) complete. 07-02 (44x44px touch targets) complete. 07-03 (slide transitions) complete. UX-01, UX-02, UX-03 delivered.
+**Phase 7: Mobile UX Polish** — Complete. 07-01 (safe area insets), 07-02 (44x44px touch targets), 07-03 (slide transitions reverted, fixes retained), 07-04 (iPhone Safari verification) all done. UX-01 through UX-04 delivered and human-verified.
 
-**Current Plan:** 07-03 complete — next: 07-04
+**Current Plan:** 07-04 complete — Phase 7 complete
 
 ---
 
@@ -63,8 +63,8 @@ See: .planning/PROJECT.md (updated 2026-03-03)
 ## Requirements Status
 
 **v1 Requirements:** 32 total
-- ✓ Validated: 31 (DEPL-01 confirmed by 01-02; DEPL-01..DEPL-03 addressed by 01-03; CAPT-01..CAPT-05 verified in Phase 2 — live deployment pending; PERS-01..PERS-03 delivered by 04-01; SWIP-02, SWIP-03, SWIP-05, SWIP-06 delivered by 05-01; SWIP-01, SWIP-04, SWIP-07, SWIP-08, SWIP-09 delivered by 05-02; SUMM-01..SUMM-05 delivered by 06-01; SUMM-06, SUMM-07 delivered by 06-02; UX-02 delivered by 07-02; UX-01, UX-03 delivered by 07-03)
-- ○ Pending: 1
+- ✓ Validated: 32 (DEPL-01 confirmed by 01-02; DEPL-01..DEPL-03 addressed by 01-03; CAPT-01..CAPT-05 verified in Phase 2 — live deployment pending; PERS-01..PERS-03 delivered by 04-01; SWIP-02, SWIP-03, SWIP-05, SWIP-06 delivered by 05-01; SWIP-01, SWIP-04, SWIP-07, SWIP-08, SWIP-09 delivered by 05-02; SUMM-01..SUMM-05 delivered by 06-01; SUMM-06, SUMM-07 delivered by 06-02; UX-01..UX-04 delivered and human-verified by 07-04)
+- ○ Pending: 0
 - ✗ Blocked: 0
 
 ---
@@ -119,10 +119,13 @@ See: .planning/PROJECT.md (updated 2026-03-03)
 - [Phase 07-03]: React key remount pattern used for CSS animation restart — no imperative DOM manipulation needed
 - [Phase 07-03]: navigate(next, direction) helper encodes transition direction at call site — all setAppState() calls replaced
 - [Phase 07-03]: willChange hint applied conditionally (only when transitionClass non-empty) to avoid GPU overhead at idle
+- [Phase 07-04]: Slide transitions (07-03) reverted before human verification — layout clipping and scroll regression made them net-negative; remaining Phase 7 changes verified as sufficient for UX-01/03
+- [Phase 07-04]: Human tester approved iPhone Safari verification — safe area insets, 44x44px touch targets, summary scroll fix, and names-preserved-on-start-over all confirmed working
 
 ## Recent Activity
 
-- 2026-03-08: Plan 07-03 complete — CSS slide transitions (slideInFromRight/Left/fadeOut keyframes + navigate() helper); UX-01, UX-03 delivered; 85/85 tests GREEN (commits: cfa74a2, 5d53088)
+- 2026-03-08: Plan 07-04 complete — iPhone Safari human verification approved; safe area insets, touch targets, scroll fix, names-preserved confirmed working; UX-04 delivered; Phase 7 complete
+- 2026-03-08: Plan 07-03 complete then reverted — CSS slide transitions caused layout clipping; revert commit (4ac58fc) removed transitions; scroll fix (min-h-0) and names-preserved retained
 - 2026-03-08: Plan 07-02 complete — 44x44px touch targets on SwipeScreen back/menu buttons and SummaryScreen pencil buttons; UX-02 delivered; 85/85 tests GREEN (commits: de56d93, e8ed730)
 - 2026-03-07: Plan 06-02 complete — SummaryScreen wired into App.tsx; SUMM-06..07 delivered; human verified all 10 steps; Phase 6 complete (commit: 58ada2f)
 - 2026-03-07: Plan 06-01 complete — SummaryScreen TDD; SUMM-01..05 delivered; 16/16 new tests GREEN, 85 total (commits: def47e1, 53b10a0)
@@ -173,8 +176,9 @@ See: .planning/PROJECT.md (updated 2026-03-03)
 ---
 
 *State tracking initialized 2026-03-03*
-*Last session: 2026-03-07 — Stopped at: Completed 06-summary-screen/06-02-PLAN.md*
+*Last session: 2026-03-08 — Stopped at: Completed 07-mobile-ux-polish/07-04-PLAN.md*
 | Phase 07-mobile-ux-polish P02 | 2min | 2 tasks | 2 files |
 | Phase 07-mobile-ux-polish P01 | 3min | 2 tasks | 4 files |
 | Phase 07-mobile-ux-polish P03 | 5min | 2 tasks | 2 files |
+| Phase 07-mobile-ux-polish P04 | 5min | 1 tasks | 0 files |
 

@@ -40,7 +40,7 @@ export function SummaryScreen({
 
   return (
     <div className="h-dvh bg-gray-50 flex flex-col overflow-hidden">
-      <div className="max-w-md mx-auto w-full flex flex-col flex-1">
+      <div className="max-w-md mx-auto w-full flex flex-col flex-1 min-h-0">
 
         {/* Totals bar — matches SwipeScreen pattern */}
         <div className="flex justify-around px-6 py-2.5 bg-white border-b border-gray-100 flex-shrink-0 pt-safe">

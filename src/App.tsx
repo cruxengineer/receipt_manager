@@ -71,8 +71,6 @@ function App() {
     setReceiptGroupSizes([])
     setSkippedRegions([])
     setSourceFiles([])
-    setPersonAName('Tom')
-    setPersonBName('Jerry')
     setSwipeKey(k => k + 1)
     navigate('capture', 'fade')
   }
